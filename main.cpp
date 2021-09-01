@@ -1,25 +1,22 @@
 #include <iostream>
-#include <time.h>
+#include "core.cpp"
+#include <chrono>
 using namespace std;
+using namespace chrono;
 
 
 int main()
 {
-    const long N = 1e9;
-    long* list = new long[N];
-    for (long i = 0; i < N; ++i) {
-        *(list + i) = i;
+    const int n = 1e9;
+    int* a = new int[n];
+    for (int i = 0; i < n; ++i) {
+        a[i] = i;
     }
-    // Ë³Ðò²éÕÒ
-//    long target = -1;
-//    cin >> target;
-    long target = 1e9-1;
-    time_t start,end;
-    start =time(NULL);
-    for (long i = 0; i < N; ++i) {
-        if (list[i] == target)
-            cout << "Get it ! " << i;
-    }
-    end =time(NULL);
-    printf("time=%d\n",difftime(end,start));
+    auto start = system_clock::now();
+    cout << seek2(a, n, n-1) << endl;
+    auto finish = system_clock::now();
+    auto duration = duration_cast<microseconds>(finish - start);
+    auto cost = double(duration.count())*microseconds::period::num / microseconds::period::den;
+    cout << cost;
+    delete[] a;
 }
