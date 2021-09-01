@@ -13,7 +13,7 @@ int main()
         a[i] = i;
     }
     auto start = system_clock::now();
-    cout << seek2(a, n, n-1) << endl;
+    cout << my_math::seek2(a, n, n-1) << endl;
     auto finish = system_clock::now();
     auto duration = duration_cast<microseconds>(finish - start);
     auto cost = double(duration.count())*microseconds::period::num / microseconds::period::den;
