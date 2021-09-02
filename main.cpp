@@ -1,22 +1,11 @@
-#include <iostream>
-#include "core.cpp"
-#include <chrono>
-using namespace std;
-using namespace chrono;
+#include<iostream>
+#include"core/search.c"
 
+using namespace std;
 
 int main()
 {
-    const int n = 1e9;
-    int* a = new int[n];
-    for (int i = 0; i < n; ++i) {
-        a[i] = i;
-    }
-    auto start = system_clock::now();
-    cout << my_math::seek2(a, n, n-1) << endl;
-    auto finish = system_clock::now();
-    auto duration = duration_cast<microseconds>(finish - start);
-    auto cost = double(duration.count())*microseconds::period::num / microseconds::period::den;
-    cout << cost;
-    delete[] a;
+    int li[] = {1,2,3,5,7,9,11,23};
+    int result = binary_search(li, sizeof(li)/sizeof(int), 4);
+    cout << result << endl;
 }
