@@ -1,4 +1,3 @@
-
 // 二分查找算法
 int binary_search(const int* list, int size, int ele) {
     int left = -1;
