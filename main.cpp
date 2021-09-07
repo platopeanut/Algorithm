@@ -1,11 +1,18 @@
-#include<iostream>
-#include"core/search.c"
 
-using namespace std;
+#include <cstdio>
+#include <ctime>
+#include "tool/tool.cpp"
+#include <vector>
+int febonacci(int n) {
+    if (n ==1 || n==2) return 1;
+    else return febonacci(n-1) + febonacci(n-2);
+}
 
-int main()
-{
-    int li[] = {1,2,3,5,7,9,11,23};
-    int result = binary_search(li, sizeof(li)/sizeof(int), 4);
-    cout << result << endl;
+int main(){
+    clock_t start, finish; // 用来保存当前时钟的变量类型
+    start = clock(); // 调用clock函数获取当前时钟
+    printf("%d\n", febonacci(42));
+    finish = clock();
+    run_time(start, finish);
+
 }
