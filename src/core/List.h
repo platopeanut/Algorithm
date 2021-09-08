@@ -6,7 +6,6 @@
 #define ALGORITHM_LIST_H
 
 namespace Peanut {
-
     template <typename E> class List {
     private:
         void operator= (const List&) {}
@@ -37,6 +36,5 @@ namespace Peanut {
         virtual const E& getValue() const = 0;
     };
 }
-
 
 #endif //ALGORITHM_LIST_H

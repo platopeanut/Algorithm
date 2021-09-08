@@ -9,6 +9,7 @@
 #define defaultSize 1024
 
 namespace Peanut {
+
     template <typename E>
     class AList: public List<E> {
     private:
