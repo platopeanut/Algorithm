@@ -2,107 +2,111 @@
 #include <iostream>
 
 template<typename E>
-Peanut::ArrayList<E>::ArrayList(int size) {
+ArrayList<E>::ArrayList(int size) {
     maxSize = size;
     listSize = curr = 0;
     listArray = new E[maxSize];
 }
 
 template<typename E>
-Peanut::ArrayList<E>::~ArrayList() {
+ArrayList<E>::~ArrayList() {
     delete[] listArray;
 }
 
 template<typename E>
-void Peanut::ArrayList<E>::clear() {
+void ArrayList<E>::clear() {
     delete[] listArray;
     listSize = curr = 0;
     listArray = new E[maxSize];
 }
 
 template<typename E>
-void Peanut::ArrayList<E>::insert(const E &item) {
+void ArrayList<E>::insert(const E& item) {
     if (listSize < maxSize) {
-        for (int i = listSize; i > curr ; --i) {
-            listArray[i] = listArray[i-1];
+        for (int i = listSize; i > curr; --i) {
+            listArray[i] = listArray[i - 1];
         }
         listArray[curr] = item;
-        listSize ++;
-    } else std::cout << "max capacity" << std::endl;
+        listSize++;
+    }
+    else std::cout << "max capacity" << std::endl;
 }
 
 template<typename E>
-void Peanut::ArrayList<E>::append(const E &item) {
+void ArrayList<E>::append(const E& item) {
     if (listSize < maxSize) {
         listArray[listSize] = item;
-        listSize ++;
-    } else std::cout << "max capacity" << std::endl;
+        listSize++;
+    }
+    else std::cout << "max capacity" << std::endl;
 }
 
 template<typename E>
-E Peanut::ArrayList<E>::remove() {
+E ArrayList<E>::remove() {
     if (listSize > 0) {
         E& tmp = listArray[curr];
-        for (int i = curr; i < listSize-1; ++i) {
-            listArray[i] = listArray[i+1];
+        for (int i = curr; i < listSize - 1; ++i) {
+            listArray[i] = listArray[i + 1];
         }
-        listSize ++;
+        listSize--;
         return tmp;
-    } else {
+    }
+    else {
         std::cout << "min capacity" << std::endl;
-        return nullptr;
+        return NULL;
+
     }
 }
 
 template<typename E>
-void Peanut::ArrayList<E>::moveToStart() {
+void ArrayList<E>::moveToStart() {
     curr = 0;
 }
 
 template<typename E>
-void Peanut::ArrayList<E>::moveToEnd() {
+void ArrayList<E>::moveToEnd() {
     curr = listSize;
 }
 
 template<typename E>
-void Peanut::ArrayList<E>::moveToPos(int pos) {
-    if (pos >=0 && pos <= listSize) curr = pos;
+void ArrayList<E>::moveToPos(int pos) {
+    if (pos >= 0 && pos <= listSize) curr = pos;
     else std::cout << "index out of range" << std::endl;
 }
 
 template<typename E>
-void Peanut::ArrayList<E>::prev() {
-    if (curr > 0) curr --;
+void ArrayList<E>::prev() {
+    if (curr > 0) curr--;
     else std::cout << "index up to start" << std::endl;
 }
 
 template<typename E>
-void Peanut::ArrayList<E>::next() {
-    if (curr < listSize) curr ++;
-    else std :: cout << "index up to end" << std::endl;
+void ArrayList<E>::next() {
+    if (curr < listSize) curr++;
+    else std::cout << "index up to end" << std::endl;
 }
 
 template<typename E>
-int Peanut::ArrayList<E>::currPos() const {
+int ArrayList<E>::currPos() const {
     return curr;
 }
 
 template<typename E>
-int Peanut::ArrayList<E>::length() const {
+int ArrayList<E>::length() const {
     return listSize;
 }
 
 template<typename E>
-const E &Peanut::ArrayList<E>::getValue() const {
+const E& ArrayList<E>::getValue() const {
     if (curr != listSize) return listArray[curr];
     else {
         std::cout << "no value" << std::endl;
-        return nullptr;
+        return NULL;
     }
 }
 
 template<typename E>
-void Peanut::ArrayList<E>::show() {
+void ArrayList<E>::show() {
     std::cout << "ArrayList[";
     for (int i = 0; i < listSize; ++i) {
         std::cout << listArray[i] << ", ";

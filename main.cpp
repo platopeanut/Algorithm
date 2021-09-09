@@ -1,7 +1,13 @@
-#include "src/list/ArrayList.h"
+#include <iostream>
+#include "ArrayList.cpp"
 
 int main()
 {
-    Peanut::ArrayList<int> arrayList(10);
+    ArrayList<int> arrayList(10);
+    for (int i = 0; i < 5; i++)
+    {
+        arrayList.append(i * 4);
+    }
     arrayList.show();
+    return 0;
 }

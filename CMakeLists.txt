@@ -3,4 +3,4 @@ project(algorithm)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(algorithm main.cpp src/list/List.h src/list/ArrayList.h src/list/ArrayList.cpp)
+add_executable(algorithm main.cpp List.h LinkedList.cpp LinkedList.h ArrayList.cpp ArrayList.h)
