@@ -2,8 +2,8 @@
 // Created by lenovo on 2021/9/7.
 //
 
-#ifndef ALGORITHM_ALIST_H
-#define ALGORITHM_ALIST_H
+#ifndef ALGORITHM_ARRAYLIST_H
+#define ALGORITHM_ARRAYLIST_H
 
 #include "List.h"
 #define defaultSize 1024
@@ -11,14 +11,15 @@
 namespace Peanut {
 
     template <typename E>
-    class AList: public List<E> {
+    class ArrayList: public List<E> {
     private:
         int maxSize;
         int listSize;
         int curr;
+        E* listArray;
     public:
-        AList(int size = defaultSize);
-        virtual ~AList();
+        ArrayList(int size = defaultSize);
+        virtual ~ArrayList();
         virtual void clear();
         virtual void insert(const E& item);
         virtual void append(const E& item);
@@ -31,8 +32,10 @@ namespace Peanut {
         virtual int currPos() const;
         virtual int length() const;
         virtual const E& getValue() const;
+
+        void show();
     };
 }
 
 
-#endif //ALGORITHM_ALIST_H
+#endif //ALGORITHM_ARRAYLIST_H
