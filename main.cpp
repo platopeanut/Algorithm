@@ -1,17 +1,38 @@
+#include "list/LinkedList.cpp"
 #include <iostream>
-#include "LinkedList.cpp"
 
-int main()
-{
-    LinkedList<int> list;
-    list.append(8);
-    list.append(5);
-    list.append(3);
-    list.insert(999);
-    list.moveToEnd();
-    list.insert(-111);
-    list.moveToPos(1);
-    list.remove();
-    list.print();
+template<typename E>
+void sortList(List<E>* list) {
+    // —°‘Ò≈≈–Ú
+    for (int i = 0; i < list->length()-1; ++i) {
+        for (int j = i+1; j < list->length(); ++j) {
+            list->moveToPos(i);
+            E a = list->getValue();
+            list->moveToPos(j);
+            E b = list->getValue();
+            if (a > b) {
+                E tmp = a;
+                a = b;
+                b = tmp;
+            }
+        }
+    }
+}
 
+template<typename E>
+void mergeLinkedList(LinkedList<E>* list1, LinkedList<E>* list2) {
+
+}
+
+
+int main() {
+    List<int>* list = new LinkedList<int>;
+    list->append(5);
+    list->append(4);
+    list->append(3);
+    list->append(2);
+    list->append(1);
+    listShow(list);
+    sortList(list);
+    listShow(list);
 }

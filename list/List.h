@@ -1,6 +1,8 @@
 #ifndef ALGORITHM_LIST_H
 #define ALGORITHM_LIST_H
 
+#include <iostream>
+
 template <typename E> class List {
 private:
     void operator= (const List&) {}
@@ -30,5 +32,16 @@ public:
     // 获取当前位置对应值?
     virtual const E& getValue() const = 0;
 };
+
+template <typename E>
+void listShow(List<E>* list) {
+    std::cout << "List[";
+    list->moveToStart();
+    for (int i = 0; i < list->length(); ++i) {
+        std::cout << list->getValue() << ", ";
+        list->next();
+    }
+    std::cout << "]" << std::endl;
+}
 
 #endif //ALGORITHM_LIST_H
