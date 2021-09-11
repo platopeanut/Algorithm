@@ -29,8 +29,10 @@ public:
     virtual int currPos() const = 0;
     // 获取表长度
     virtual int length() const = 0;
-    // 获取当前位置对应值?
+    // 获取当前位置对应值
     virtual const E& getValue() const = 0;
+    // 对当前位置值进行修改【自定义】
+    virtual void setValue(const E& item) = 0;
 };
 
 template <typename E>

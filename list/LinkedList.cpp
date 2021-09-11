@@ -128,3 +128,10 @@ void LinkedList<E>::print() const {
     }
     std::cout << "]" << std::endl;
 }
+
+template<typename E>
+void LinkedList<E>::setValue(const E &item) {
+    if (curr != tail) {
+        curr->next->data = item;
+    } else std::cout << "No Element" << std::endl;
+}

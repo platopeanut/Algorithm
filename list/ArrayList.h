@@ -26,7 +26,10 @@ public:
     virtual int length() const;
     virtual const E& getValue() const;
 
+    virtual void setValue(const E &item);
+
     void show();
+
 };
 
 #endif //ALGORITHM_ARRAYLIST_H

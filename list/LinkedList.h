@@ -29,6 +29,8 @@ public:
     virtual int currPos() const;
     virtual int length() const;
     virtual const E& getValue() const;
+
+    virtual void setValue(const E &item);
 };
 
 
