@@ -6,8 +6,8 @@ class Node {
 public:
     E data;
     Node<E>* next;
-    Node(E data, Node<E>* next) : data(data), next(next) {}
-    Node(Node<E>* next): next(next) {}
+    Node(const E& data, Node<E>* next = NULL) : data(data), next(next) {}
+    Node(Node<E>* next = NULL): next(next) {}
 };
 
 

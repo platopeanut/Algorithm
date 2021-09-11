@@ -10,10 +10,13 @@ private:
     Node<E>* curr;
     Node<E>* tail;
     // Á´±í³¤¶È
-    int cnt;
+    int cnt = 0;
     void init();
     void removeAll();
 public:
+    LinkedList() {init();}
+    ~LinkedList() {removeAll();}
+    void print() const;
     virtual void clear();
     virtual void insert(const E& item);
     virtual void append(const E& item);
