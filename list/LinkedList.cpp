@@ -1,5 +1,6 @@
 #include <iostream>
 #include "LinkedList.h"
+#include "../util/StringException.h"
 
 template<typename E>
 void LinkedList<E>::init() {
@@ -9,7 +10,7 @@ void LinkedList<E>::init() {
 
 template<typename E>
 void LinkedList<E>::removeAll() {
-    while (head != NULL) {
+    while (head != nullptr) {
         curr = head;
         head = head->next;
         delete curr;
@@ -40,10 +41,7 @@ void LinkedList<E>::append(const E &item) {
 template<typename E>
 E LinkedList<E>::remove() {
     // 包括长度为0时，当curr==tail时
-    if (curr->next == NULL) {
-        std::cout << "No Element" << std::endl;
-        return NULL;
-    }
+    if (curr->next == nullptr) throw StringException("LinkedList::remove()==>No element");
     // 当要删除表尾时需要重新声明tail
     if (curr->next == tail) {
         tail = curr;
@@ -75,7 +73,7 @@ void LinkedList<E>::moveToPos(int pos) {
         for (int i = pos; i > 0 ; --i) {
             curr = curr->next;
         }
-    } else std::cout << "index out of range" << std::endl;
+    } else throw StringException("LinkedList::moveToPos()==>index out of range");
 }
 
 template<typename E>
@@ -113,17 +111,14 @@ int LinkedList<E>::length() const {
 template<typename E>
 const E &LinkedList<E>::getValue() const {
     // when curr == tail
-    if (curr->next == NULL) {
-        std::cout << "No Value" << std::endl;
-        return NULL;
-    }
+    if (curr->next == nullptr) throw StringException("LinkedList::getValue()==>No Value");
     return curr->next->data;
 }
 
 template<typename E>
 void LinkedList<E>::print() const {
     std::cout << "LinkedList[";
-    for (Node<E>* i = head->next; i != NULL; i = i->next ) {
+    for (Node<E>* i = head->next; i != nullptr; i = i->next ) {
         std::cout << i->data << ", ";
     }
     std::cout << "]" << std::endl;
@@ -133,5 +128,5 @@ template<typename E>
 void LinkedList<E>::setValue(const E &item) {
     if (curr != tail) {
         curr->next->data = item;
-    } else std::cout << "No Element" << std::endl;
+    } else throw StringException("LinkedList::setValue()==>No Element");
 }

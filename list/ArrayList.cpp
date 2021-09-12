@@ -1,5 +1,6 @@
 #include "ArrayList.h"
 #include <iostream>
+#include "../util/StringException.h"
 
 template<typename E>
 ArrayList<E>::ArrayList(int size) {
@@ -28,8 +29,7 @@ void ArrayList<E>::insert(const E& item) {
         }
         listArray[curr] = item;
         listSize++;
-    }
-    else std::cout << "max capacity" << std::endl;
+    } else throw StringException("ArrayList::insert()==>max capacity");
 }
 
 template<typename E>
@@ -38,7 +38,7 @@ void ArrayList<E>::append(const E& item) {
         listArray[listSize] = item;
         listSize++;
     }
-    else std::cout << "max capacity" << std::endl;
+    else throw StringException("ArrayList::append()==>max capacity");
 }
 
 template<typename E>
@@ -50,12 +50,7 @@ E ArrayList<E>::remove() {
         }
         listSize--;
         return tmp;
-    }
-    else {
-        std::cout << "min capacity" << std::endl;
-        return NULL;
-
-    }
+    } else throw StringException("ArrayList::remove()==>min capacity");
 }
 
 template<typename E>
@@ -71,19 +66,19 @@ void ArrayList<E>::moveToEnd() {
 template<typename E>
 void ArrayList<E>::moveToPos(int pos) {
     if (pos >= 0 && pos <= listSize) curr = pos;
-    else std::cout << "index out of range" << std::endl;
+    else throw StringException("ArrayList::moveToPos()==>index out of range");
 }
 
 template<typename E>
 void ArrayList<E>::prev() {
     if (curr > 0) curr--;
-    else std::cout << "index up to start" << std::endl;
+    else throw StringException("ArrayList::prev()==>index up to start");
 }
 
 template<typename E>
 void ArrayList<E>::next() {
     if (curr < listSize) curr++;
-    else std::cout << "index up to end" << std::endl;
+    else throw StringException("ArrayList::next()==>index up to end");
 }
 
 template<typename E>
@@ -99,10 +94,7 @@ int ArrayList<E>::length() const {
 template<typename E>
 const E& ArrayList<E>::getValue() const {
     if (curr != listSize) return listArray[curr];
-    else {
-        std::cout << "no value" << std::endl;
-        return NULL;
-    }
+    else throw StringException("ArrayList::getValue()==>No value");
 }
 
 template<typename E>
@@ -118,5 +110,5 @@ template<typename E>
 void ArrayList<E>::setValue(const E &item) {
     if (curr >= 0 && curr < listSize) {
         listArray[curr] = item;
-    } else std::cout << "No element" << std::endl;
+    } else throw StringException("ArrayList::setValue()==>No element");
 }

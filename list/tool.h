@@ -1,4 +1,5 @@
 #include "List.h"
+#include "../util/StringException.h"
 
 template <typename E>
 void showList(List<E>* list) {
@@ -43,21 +44,26 @@ LinkedList<E>* mergeList(List<E>* list1, List<E>* list2) {
     list1->moveToStart();
     list2->moveToStart();
     for (int i = 0; i < list1->length()+list2->length(); ++i) {
-        if (list1->getValue() == NULL) {
+        E a,b;
+        try {
+            a = list1->getValue();
+        } catch (StringException& e) {
             result->append(list2->getValue());
             list2->next();
             continue;
         }
-        if (list2->getValue() == NULL) {
+        try {
+            b = list2->getValue();
+        } catch (StringException& e) {
             result->append(list1->getValue());
             list1->next();
             continue;
         }
-        if (list1->getValue() < list2->getValue()) {
-            result->append(list1->getValue());
+        if (a < b) {
+            result->append(a);
             list1->next();
         } else {
-            result->append(list2->getValue());
+            result->append(b);
             list2->next();
         }
     }
