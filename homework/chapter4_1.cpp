@@ -3,7 +3,7 @@
 #include "list/LinkedList.cpp"
 
 template <typename E>
-void listShow(List<E>* list) {
+void showList(List<E>* list) {
     std::cout << "List[";
     list->moveToStart();
     for (int i = 0; i < list->length(); ++i) {

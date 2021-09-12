@@ -1,6 +1,15 @@
-#include "list/LinkedList.cpp"
-#include "list/ArrayList.cpp"
-#include <iostream>
+#include "List.h"
+
+template <typename E>
+void showList(List<E>* list) {
+    std::cout << "List[";
+    list->moveToStart();
+    for (int i = 0; i < list->length(); ++i) {
+        std::cout << list->getValue() << ", ";
+        list->next();
+    }
+    std::cout << "]" << std::endl;
+}
 
 template<typename E>
 void sortList(List<E>* list) {
@@ -18,6 +27,13 @@ void sortList(List<E>* list) {
                 list->setValue(a);
             }
         }
+    }
+}
+
+template<typename E>
+void initList(List<E>* list, E* value, int size) {
+    for (int i = 0; i < size; ++i) {
+        list->append(value[i]);
     }
 }
 
@@ -46,30 +62,4 @@ LinkedList<E>* mergeList(List<E>* list1, List<E>* list2) {
         }
     }
     return result;
-}
-
-
-int main() {
-    List<int>* list1 = new LinkedList<int>;
-    list1->append(5);
-    list1->append(4);
-    list1->append(3);
-    list1->append(2);
-    list1->append(1);
-    listShow(list1);
-    sortList(list1);
-    listShow(list1);
-    List<int>* list2 = new LinkedList<int>;
-    list2->append(9);
-    list2->append(1);
-    list2->append(3);
-    list2->append(8);
-    list2->append(-2);
-    listShow(list2);
-    sortList(list2);
-    listShow(list2);
-    std::cout << "--------------------" << std::endl;
-    auto* a = mergeList(list1, list2);
-    listShow(a);
-
 }

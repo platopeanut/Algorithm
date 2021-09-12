@@ -35,15 +35,4 @@ public:
     virtual void setValue(const E& item) = 0;
 };
 
-template <typename E>
-void listShow(List<E>* list) {
-    std::cout << "List[";
-    list->moveToStart();
-    for (int i = 0; i < list->length(); ++i) {
-        std::cout << list->getValue() << ", ";
-        list->next();
-    }
-    std::cout << "]" << std::endl;
-}
-
 #endif //ALGORITHM_LIST_H
