@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 #include "list/LinkedList.cpp"
 #include "list/ArrayList.cpp"
 #include "list/tool.h"
@@ -24,4 +22,3 @@ int main() {
     showList(list);
 
 }
->>>>>>> 191f096adcefac425fab3b5071fd58d28bdef238
