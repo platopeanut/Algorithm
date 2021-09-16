@@ -1,6 +1,6 @@
 #include <iostream>
 #include "LinkedList.h"
-#include "../util/StringException.h"
+#include "../../util/StringException.h"
 
 template<typename E>
 void LinkedList<E>::init() {

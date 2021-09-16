@@ -1,16 +1,22 @@
-#include "list/NodeWithPool.h"
-
-int main() {
-    NodeWithPool<int>* a = new NodeWithPool<int>(2, nullptr);
-    NodeWithPool<int>* b = new NodeWithPool<int>(3, nullptr);
-    NodeWithPool<int>* c = new NodeWithPool<int>(4, nullptr);
-    delete a;
-    delete b;
-    delete c;
-    NodeWithPool<int>::poolShow();
-    NodeWithPool<int>* d = new NodeWithPool<int>(5, nullptr);
-    NodeWithPool<int>::poolShow();
-    delete d;
-    return 0;
-
+#include "dataStructures/stack/Stack.h"
+#include "dataStructures/stack/ArrayStack.cpp"
+int main()
+{
+    Stack<int>* stack = new ArrayStack<int>(5);
+    stack->show();
+//    stack->pop();
+    stack->push(5);
+    stack->push(9);
+    stack->push(1);
+    stack->show();
+    std::cout << stack->topValue();
+//    stack->pop();
+//    stack->pop();
+//    stack->push(-45);
+//    stack->push(0);
+//    stack->show();
+//    stack->push(99);
+//    stack->push(98);
+//    stack->show();
+//    stack->push(97);
 }

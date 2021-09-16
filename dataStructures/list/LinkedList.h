@@ -3,7 +3,7 @@
 #define ALGORITHM_LINKEDLIST_H
 
 #include "List.h"
-#include "Node.h"
+#include "../node/Node.h"
 template<typename E> class LinkedList : public List<E> {
 private:
     Node<E>* head;

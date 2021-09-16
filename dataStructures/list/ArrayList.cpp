@@ -1,6 +1,6 @@
 #include "ArrayList.h"
 #include <iostream>
-#include "../util/StringException.h"
+#include "../../util/StringException.h"
 
 template<typename E>
 ArrayList<E>::ArrayList(int size) {

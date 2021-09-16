@@ -1,5 +1,5 @@
 #include "List.h"
-#include "../util/StringException.h"
+#include "../../util/StringException.h"
 
 template <typename E>
 void showList(List<E>* list) {
