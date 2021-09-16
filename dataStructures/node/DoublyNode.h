@@ -1,6 +1,9 @@
 #ifndef ALGORITHM_DOUBLYNODE_H
 #define ALGORITHM_DOUBLYNODE_H
 
+#include <cstddef>
+#include <iostream>
+
 template<typename E>
 class DoublyNode {
 private:
@@ -14,16 +17,27 @@ public:
 
     void* operator new(size_t) {
         if (freeList == nullptr) return ::new DoublyNode<E>;
+//        std::cout << "Node::new()"<< freeList->data << std::endl;//test
         DoublyNode<E>* tmp = freeList;
         freeList = freeList->next;
         return tmp;
     }
 
     void operator delete(void* ptr) {
-        ptr = (DoublyNode<E>*)ptr;
-        ptr->next = freeList;
-        freeList = ptr;
+//        std::cout << "Node::delete()"<< ((DoublyNode<E>*)ptr)->data << std::endl;//test
+        ((DoublyNode<E>*)ptr)->next = freeList;
+        freeList = (DoublyNode<E>*)ptr;
     }
+    //test
+//    static void poolShow() {
+//        DoublyNode<E>* tmp = freeList;
+//        std::cout << "Pool[";
+//        while (tmp != nullptr) {
+//            std::cout << tmp->data << ", ";
+//            tmp = tmp->next;
+//        }
+//        std::cout << "]" << std::endl;
+//    };
 };
 
 template<typename E>

@@ -27,7 +27,7 @@ E ArrayQueue<E>::dequeue() {
 
 template<typename E>
 const E &ArrayQueue<E>::frontValue() const {
-    return <#initializer#>;
+    return 0;
 }
 
 template<typename E>

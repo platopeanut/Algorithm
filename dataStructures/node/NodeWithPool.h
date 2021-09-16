@@ -18,6 +18,7 @@ public:
     // 重载new
     // 重载operator new 必须返回void*
     void* operator new(size_t) {
+        // 这里还可以进行一个优化：每次new获取100个空间
         if (freeList == nullptr) return ::new NodeWithPool<E>;//这里返回可以不添加类型
         std::cout << "NodeWithPool::new::" << freeList->data << std::endl;
         NodeWithPool<E>* tmp = freeList;
@@ -27,6 +28,7 @@ public:
     // 重载delete
     // void* 指针需要转换
     void operator delete(void* ptr) {
+        // 这里不能：ptr = (NodeWithPool<E>*)ptr
         ((NodeWithPool<E>*)ptr)->next = freeList;
         freeList = (NodeWithPool<E>*)ptr;
         std::cout << "NodeWithPool::delete" << ((NodeWithPool<E>*)ptr)->data<< std::endl;
