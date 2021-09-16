@@ -1,25 +1,23 @@
-//
-// Created by Peanut on 2021/9/16.
-//
-
 #include "DoublyLinkedList.h"
 
 template<typename E>
-DoublyLinkedList<E>::DoublyLinkedList() {
-//    head = new DoublyNode<E>(nullptr, tail);
-//    tail = new DoublyNode<E>(head, nullptr);
-//    cnt = 0;
-//    curr = head;
+void DoublyLinkedList<E>::init() {
+    head = new DoublyNode<E>;
+    tail = new DoublyNode<E>(head, nullptr);
+    head->next = tail;
+    cnt = 0;
+    curr = head;
 }
 
 template<typename E>
-DoublyLinkedList<E>::~DoublyLinkedList() {
-
-}
-
-template<typename E>
-void DoublyLinkedList<E>::clear() {
-
+void DoublyLinkedList<E>::removeAll() {
+    curr = head;
+    while (head != tail) {
+        head = head->next;
+        delete curr;
+        curr = head;
+    }
+    delete tail;
 }
 
 template<typename E>
@@ -29,7 +27,8 @@ void DoublyLinkedList<E>::insert(const E &item) {
 
 template<typename E>
 void DoublyLinkedList<E>::append(const E &item) {
-
+    tail->prev = tail->prev->next = new DoublyNode<E>(item, tail->prev, tail);
+    cnt ++;
 }
 
 template<typename E>
@@ -39,12 +38,12 @@ E DoublyLinkedList<E>::remove() {
 
 template<typename E>
 void DoublyLinkedList<E>::moveToStart() {
-
+    curr = head;
 }
 
 template<typename E>
 void DoublyLinkedList<E>::moveToEnd() {
-
+    curr = tail->prev->prev;
 }
 
 template<typename E>

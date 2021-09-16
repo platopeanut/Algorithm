@@ -2,6 +2,11 @@
 #include "LinkedList.h"
 #include "../../util/StringException.h"
 
+// TODO:moveToEnd使curr指向tail前一个
+// 当前问题：moveToEnd,remove不能删除最后一个
+// 增加tail前节点缓存
+// insert增加判断末尾
+
 template<typename E>
 void LinkedList<E>::init() {
     head = curr = tail = new Node<E>;
