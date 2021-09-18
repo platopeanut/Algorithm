@@ -20,7 +20,7 @@ public:
     void* operator new(size_t) {
         // 这里还可以进行一个优化：每次new获取100个空间
         if (freeList == nullptr) return ::new NodeWithPool<E>;//这里返回可以不添加类型
-        std::cout << "NodeWithPool::new::" << freeList->data << std::endl;
+//        std::cout << "NodeWithPool::new::" << freeList->data << std::endl;//test
         NodeWithPool<E>* tmp = freeList;
         freeList = freeList->next;
         return tmp;
@@ -31,7 +31,7 @@ public:
         // 这里不能：ptr = (NodeWithPool<E>*)ptr
         ((NodeWithPool<E>*)ptr)->next = freeList;
         freeList = (NodeWithPool<E>*)ptr;
-        std::cout << "NodeWithPool::delete" << ((NodeWithPool<E>*)ptr)->data<< std::endl;
+//        std::cout << "NodeWithPool::delete" << ((NodeWithPool<E>*)ptr)->data<< std::endl;//test
     }
     static void poolShow() {
         std::cout << "NodePool[";

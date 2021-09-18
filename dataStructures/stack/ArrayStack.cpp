@@ -15,6 +15,7 @@ ArrayStack<E>::~ArrayStack() {
 
 template<typename E>
 void ArrayStack<E>::clear() {
+    // 注意这种写法，不需要将站内元素清零（浪费时间且无用）
     top = 0;
 }
 
