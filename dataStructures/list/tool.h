@@ -1,5 +1,6 @@
 #include "List.h"
 #include "../../util/StringException.h"
+#include "LinkedList.cpp"
 
 template <typename E>
 void showList(List<E>* list) {
@@ -38,6 +39,7 @@ void initList(List<E>* list, E* value, int size) {
     }
 }
 
+// 合并两个有序list,返回LinkedList
 template<typename E>
 LinkedList<E>* mergeList(List<E>* list1, List<E>* list2) {
     auto* result = new LinkedList<E>;
