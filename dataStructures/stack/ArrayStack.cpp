@@ -45,8 +45,8 @@ int ArrayStack<E>::length() const {
 template<typename E>
 void ArrayStack<E>::show() const {
     std::cout << "ArrayStack[";
-    for (int i = 0; i < top; ++i) {
-        std::cout << listArray[i] << ", ";
+    for (int i = top -1; i >= 0; --i) {
+        std::cout << listArray[i] << " >> ";
     }
     std::cout << "]" << std::endl;
 }

@@ -1,3 +1,4 @@
+#include "dataStructures/stack/ArrayStack.cpp"
 #include "dataStructures/stack/LinkedStack.cpp"
 #include <iostream>
 #include <string>

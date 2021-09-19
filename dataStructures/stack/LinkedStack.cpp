@@ -53,10 +53,10 @@ int LinkedStack<E>::length() const {
 
 template<typename E>
 void LinkedStack<E>::show() const {
-    std::cout << "ArrayStack[";
+    std::cout << "LinkedStack[";
     NodeWithPool<E>* tmp = top;
     while (tmp != nullptr) {
-        std::cout << tmp->data << ", ";
+        std::cout << tmp->data << " >> ";
         tmp = tmp->next;
     }
     std::cout << "]" << std::endl;
