@@ -19,6 +19,9 @@ public:
     virtual const E& frontValue() const = 0;
     // 获取队长度
     virtual int length() const = 0;
+
+    // 自定义方便测试
+    virtual void show() const = 0;
 };
 
 
