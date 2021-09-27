@@ -135,3 +135,16 @@ void LinkedList<E>::setValue(const E &item) {
         curr->next->data = item;
     } else throw StringException("LinkedList::setValue()==>No Element");
 }
+
+// chapter4_6
+template<typename E>
+void LinkedList<E>::reverse() {
+    tail = head->next;
+    if (tail == nullptr) return;
+    while (tail->next != nullptr) {
+        curr = tail->next;
+        tail->next = curr->next;
+        curr->next = head->next;
+        head->next = curr;
+    }
+}

@@ -31,6 +31,9 @@ public:
     virtual const E& getValue() const;
 
     virtual void setValue(const E &item);
+
+    // chapter4_6
+    void reverse();
 };
 
 
