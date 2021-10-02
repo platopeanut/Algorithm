@@ -1,5 +1,9 @@
 #include "./BinNode.h"
 #include <iostream>
+
+
+// 访问者模式：为树类提供一个通用的遍历函数，把访问处理函数作为遍历函数的一个参数或者一个模板参数
+
 // 前序遍历
 template<typename E>
 void preorder(BinNode<E>* root) {

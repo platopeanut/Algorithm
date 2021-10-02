@@ -21,5 +21,8 @@ public:
     virtual bool isLeaf() = 0;
 };
 
+// 优化：重载new和delete以支持可利用空间表
+// 父指针是不必要的
+
 
 #endif //ALGORITHM_BINNODE_H
