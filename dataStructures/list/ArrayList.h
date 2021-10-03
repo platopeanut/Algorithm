@@ -2,6 +2,7 @@
 #define ALGORITHM_ARRAYLIST_H
 
 #include "List.h"
+
 #define defaultSize 1024
 
 template<typename E> class ArrayList : public List<E> {
