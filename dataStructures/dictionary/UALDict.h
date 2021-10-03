@@ -15,10 +15,13 @@ public:
     UALDict(int size = defaultSize) { list = new ArrayList<KVPair<K, V>>(size); }
     ~UALDict() { delete list; }
     void clear() { list->clear(); }
-    void insert(const K& key, const V& value) { list->append(KVPair<K, V>(key, value)); }
+    void insert(const K& key, const V& value) {
+        KVPair<K, V> tmp(key, value);
+        list->append(tmp);
+    }
     V remove(const K& key) {
         // 找不到find会报错，此时不用处理
-        E tmp = find(key);
+        V tmp = find(key);
         list->remove();
         return tmp;
     }
@@ -33,10 +36,11 @@ public:
     }
 
     V find(const K& key) const {
-        // 没找到，ArrayList会自己报异常
         for (list->moveToStart(); list->currPos() < list->length(); list->next()) {
-            if (key == list->getValue().getKey()) return list->getValue().getValue();
+            KVPair<K, V> tmp = list->getValue();
+            if (key == tmp.getKey()) return tmp.getValue();
         }
+        throw StringException("UALDict::find()==>Not Found");
     }
 
     int size() { return list->length(); }

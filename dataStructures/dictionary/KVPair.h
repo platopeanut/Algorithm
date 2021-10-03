@@ -12,7 +12,10 @@ public:
     KVPair() {}
     KVPair(K key, V value): key(key), value(value) {}
     KVPair(const KVPair& KVPair): key(KVPair.key), value(KVPair.value) {}
-    void operator=(const KVPair& KVPair): key(kVpair.key), value(kVpair.value) {}
+    void operator=(const KVPair& pair){
+        key = pair.key;
+        value = pair.value;
+    }
     K getKey() {return key;}
     void setKey(K key) { this->key = key;}
     V getValue() {return value;}
