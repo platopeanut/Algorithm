@@ -21,19 +21,19 @@ public:
     :key(key), value(value), lc(lc), rc(rc){}
     ~BSTNode() = default;
 
-    V &element() override {return value;}
-    void setElement(const V& value) override {this->value = value;}
+    V &element() {return value;}
+    void setElement(const V& value) {this->value = value;}
 
     K& getKey() {return key;}
     void setKey(const K& key) { this->key = key;}
 
-    BinNode<V> *left() const override {return lc;}
-    void setLeft(BinNode *node) override { this->lc = (BSTNode*)node;}
+    BSTNode<K, V> *left() const {return lc;}
+    void setLeft(BinNode<V> *node) { this->lc = (BSTNode*)node;}
 
-    BinNode<V> *right() const override {return rc;}
-    void setRight(BinNode *node) override {this->rc = (BSTNode*)node;}
+    BSTNode<K, V> *right() const {return rc;}
+    void setRight(BinNode<V> *node) {this->rc = (BSTNode*)node;}
 
-    bool isLeaf() override {return (this->lc == nullptr)&&(this->rc == nullptr);}
+    bool isLeaf() {return (this->lc == nullptr)&&(this->rc == nullptr);}
 };
 
 
