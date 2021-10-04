@@ -118,3 +118,19 @@ void BinarySearchTree<K, V>::print() const {
     if (root == nullptr) std::cout << "the BST is empty" << std::endl;
     else printHelp(root, 0);
 }
+
+template<typename K, typename V>
+void BinarySearchTree<K, V>::depthHelp(BSTNode<K, V> *node, int *depth, int level) const {
+    if (node == nullptr) return;
+    level ++;
+    if (level > *depth) *depth = level;
+    depthHelp(node->left(), depth, level);
+    depthHelp(node->right(), depth, level);
+}
+
+template<typename K, typename V>
+int BinarySearchTree<K, V>::getDepth() const {
+    int depth = 0;
+    depthHelp(root, &depth);
+    return depth;
+}

@@ -18,6 +18,9 @@ private:
     BSTNode<K, V>* deleteMin(BSTNode<K, V>*);
     BSTNode<K, V>* getMin(BSTNode<K, V>*);
 
+    // 获取深度辅助函数
+    void depthHelp(BSTNode<K, V>* node, int* depth, int level = 0) const;
+
 public:
     BinarySearchTree():root(nullptr), nodeCount(0) {}
     ~BinarySearchTree() { clearHelp(root); }
@@ -35,6 +38,9 @@ public:
     virtual int size();
 
     void print() const;
+
+    // 获取深度
+    int getDepth() const;
 };
 
 #endif //ALGORITHM_BINARYSEARCHTREE_H
