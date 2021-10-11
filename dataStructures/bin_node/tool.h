@@ -1,4 +1,5 @@
 #include "./BinNode.h"
+#include "./BSTNode.h"
 #include <iostream>
 
 
@@ -8,7 +9,7 @@
 template<typename E>
 void preorder(BinNode<E>* root) {
     if (root == nullptr) return;
-    std::cout << root->element() << std::endl;// 其中这里可以换成处理函数handler
+    std::cout << root->element() << " ";// 其中这里可以换成处理函数handler
     preorder(root->left());
     preorder(root->right());
 }
@@ -16,17 +17,17 @@ void preorder(BinNode<E>* root) {
 template<typename E>
 void postorder(BinNode<E>* root) {
     if (root == nullptr) return;
-    preorder(root->left());
-    preorder(root->right());
-    std::cout << root->element() << std::endl;
+    postorder(root->left());
+    postorder(root->right());
+    std::cout << root->element() << " ";
 }
 // 中序遍历
 template<typename E>
 void inorder(BinNode<E>* root) {
     if (root == nullptr) return;
-    preorder(root->left());
-    std::cout << root->element() << std::endl;
-    preorder(root->right());
+    inorder(root->left());
+    std::cout << root->element() << " ";
+    inorder(root->right());
 }
 
 // 计算二叉树节点数目
@@ -35,8 +36,21 @@ int count(BinNode<E>* root) {
     if (root == nullptr) return 0;
     return 1 + count(root->left()) + count(root->right());
 }
-// 二叉检索树
-//template<typename Key, typename E>
-//bool checkBST() {}
 
+// 判断一个树是否为二叉检索树
+template<typename E>
+bool checkBST(BinNode<E>* root, E low, E high) {
+    if (root == nullptr) return true;
+    E key = root->element();
+    if (key < low || key > high) return false;
+    if (!checkBST<E>(root->left(), low, key)) return false;
+    return checkBST<E>(root->right(), key, high);
+}
 
+// 查询K是否在二叉树中
+template<typename E>
+bool search(BinNode<E>* root, E key) {
+    if (root == nullptr) return false;
+    if (root->element() == key) return true;
+    return search(root->left(), key) || search(root->right(), key);
+}
