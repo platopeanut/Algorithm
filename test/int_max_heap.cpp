@@ -36,7 +36,7 @@ private:
     }
 public:
     Heap(int* list, int size, int maxSize = 1024)
-    :size(size), maxSize(maxSize) {
+            :size(size), maxSize(maxSize) {
         this->list = new int[maxSize];
         for (int i = 0; i < size; ++i) this->list[i] = list[i];
         build_max_heap();
