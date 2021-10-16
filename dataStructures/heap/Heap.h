@@ -2,19 +2,8 @@
 #define ALGORITHM_HEAP_H
 
 #include <iostream>
+#include "../../util/Compare.h"
 
-template<typename E>
-class Compare {
-public:
-    // 若a比b优先级高则返回true
-    bool static prior(E a, E b) {return a > b;}
-    // 交换index为a, b的元素
-    void static swap(E* list, int a, int b) {
-        auto tmp = list[a];
-        list[a] = list[b];
-        list[b] = tmp;
-    }
-};
 template<typename E>
 class Heap {
 private:
@@ -24,15 +13,28 @@ private:
     int maxSize;
     // 当前堆中元素数量
     int num;
+    // 比较器类
+    Compare<E>* compare;
     // helper function
     void siftDown(int pos);
 
+    // 交换index为a, b的元素
+    void static swap(E* list, int a, int b) {
+        auto tmp = list[a];
+        list[a] = list[b];
+        list[b] = tmp;
+    }
 public:
-    // 使用数组创建一个堆
-    Heap(E* heap, int num, int maxSize = 1024): num(num), maxSize(maxSize) {
+    // 使用数组创建一个堆，默认为最大堆
+    Heap(E* heap, int num, int maxSize = 1024, Compare<E>* compare = new MaxCompare<E>)
+    : num(num), maxSize(maxSize), compare(compare) {
         this->heap = new E[maxSize];
         for (int i = 0; i < num; ++i) this->heap[i] = heap[i];
         buildHeap();
+    }
+    ~Heap() {
+        delete[] this->heap;
+        delete this->compare;
     }
     int size() const {return num;}
     // 根据完全二叉树定理，没有越界检查
@@ -55,6 +57,14 @@ public:
 
     void show();
     void heap_sort();
+    void setCompare(Compare<E>* compare) {
+        // 注意内存泄露
+        delete this->compare;
+        this->compare = compare;
+        // 重建
+        this->buildHeap();
+    }
+    const Compare<E>* getCompare() { return this->compare; }
 };
 
 
