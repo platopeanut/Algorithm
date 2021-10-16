@@ -41,6 +41,8 @@ public:
 
     // 获取深度
     int getDepth() const;
+    // 获取root，使有些习题方便
+    BSTNode<K, V>* getRoot() { return this->root; }
 };
 
 #endif //ALGORITHM_BINARYSEARCHTREE_H

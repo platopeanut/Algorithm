@@ -42,7 +42,7 @@ E LinkedStack<E>::pop() {
 
 template<typename E>
 const E &LinkedStack<E>::topValue() const {
-    if (size == 0) throw StringException("LinkedStack::topValue()==>No element");
+    if (size == 0) throw StringException("LinkedStack::topValue()==>No getElement");
     return top->data;
 }
 

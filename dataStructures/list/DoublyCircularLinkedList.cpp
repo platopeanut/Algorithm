@@ -46,7 +46,7 @@ void DoublyCircularLinkedList<E>::append(const E &item) {
 
 template<typename E>
 E DoublyCircularLinkedList<E>::remove() {
-    if (size == 0) throw StringException("DoublyCircularLinkedList::remove()==>No element");
+    if (size == 0) throw StringException("DoublyCircularLinkedList::remove()==>No getElement");
     auto* tmp = curr;
     curr = curr->next;
     tmp->prev->next = tmp->next;

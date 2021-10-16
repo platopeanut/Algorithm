@@ -40,7 +40,7 @@ void DoublyLinkedList<E>::append(const E &item) {
 template<typename E>
 E DoublyLinkedList<E>::remove() {
     // 包含长度为0，以及curr在tail.prev时两种情况
-    if (curr->next == tail) throw StringException("DoublyLinkedList::remove()==>No element");
+    if (curr->next == tail) throw StringException("DoublyLinkedList::remove()==>No getElement");
     DoublyNode<E>* tmp = curr->next;
     E data = tmp->data;
     curr->next = curr->next->next;
@@ -104,6 +104,6 @@ const E &DoublyLinkedList<E>::getValue() const {
 
 template<typename E>
 void DoublyLinkedList<E>::setValue(const E &item) {
-    if (curr->next == tail) throw StringException("DoublyLinkedList::setValue()==>No element");
+    if (curr->next == tail) throw StringException("DoublyLinkedList::setValue()==>No getElement");
     curr->next->data = item;
 }

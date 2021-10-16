@@ -444,7 +444,7 @@ organization, or merging organizations.  If propagation of a covered
 work results from an entity transaction, each party to that
 transaction who receives a copy of the work also receives whatever
 licenses to the work the party's predecessor in interest had or could
-give under the previous paragraph, plus a right to possession of the
+give under the previous paragraph, plus a getRight to possession of the
 Corresponding Source of the work from the predecessor in interest, if
 the predecessor has it or can get it with reasonable efforts.
 
@@ -468,7 +468,7 @@ hereafter acquired, that would be infringed by some manner, permitted
 by this License, of making, using, or selling its contributor version,
 but do not include claims that would be infringed only as a
 consequence of further modification of the contributor version.  For
-purposes of this definition, "control" includes the right to grant
+purposes of this definition, "control" includes the getRight to grant
 patent sublicenses in a manner consistent with the requirements of
 this License.
 

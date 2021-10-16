@@ -27,13 +27,13 @@ void ArrayStack<E>::push(const E &item) {
 
 template<typename E>
 E ArrayStack<E>::pop() {
-    if (top == 0) throw StringException("ArrayStack::pop()==>no element");
+    if (top == 0) throw StringException("ArrayStack::pop()==>no getElement");
     return listArray[--top];
 }
 
 template<typename E>
 const E &ArrayStack<E>::topValue() const {
-    if (top == 0) throw StringException("ArrayStack::topValue()==>no element");
+    if (top == 0) throw StringException("ArrayStack::topValue()==>no getElement");
     return listArray[top - 1];
 }
 

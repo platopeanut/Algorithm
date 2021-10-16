@@ -46,7 +46,7 @@ void LinkedList<E>::append(const E &item) {
 template<typename E>
 E LinkedList<E>::remove() {
     // 包括长度为0时，当curr==tail时
-    if (curr->next == nullptr) throw StringException("LinkedList::remove()==>No element");
+    if (curr->next == nullptr) throw StringException("LinkedList::remove()==>No getElement");
     // 当要删除表尾时需要重新声明tail
     if (curr->next == tail) {
         tail = curr;

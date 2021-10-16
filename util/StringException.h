@@ -15,7 +15,6 @@ public:
     const char * what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_USE_NOEXCEPT override {
         return message;
     }
-
 };
 
 

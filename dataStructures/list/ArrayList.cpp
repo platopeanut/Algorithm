@@ -110,5 +110,5 @@ template<typename E>
 void ArrayList<E>::setValue(const E &item) {
     if (curr >= 0 && curr < listSize) {
         listArray[curr] = item;
-    } else throw StringException("ArrayList::setValue()==>No element");
+    } else throw StringException("ArrayList::setValue()==>No getElement");
 }

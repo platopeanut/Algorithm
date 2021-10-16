@@ -21,16 +21,16 @@ public:
     :key(key), value(value), lc(lc), rc(rc){}
     ~BSTNode() = default;
 
-    V &element() {return value;}
-    void setElement(const V& value) {this->value = value;}
+    V &getElement() {return value;}
+    void setElement(const V& v) { this->value = v;}
 
     K& getKey() {return key;}
-    void setKey(const K& key) { this->key = key;}
+    void setKey(const K& k) { this->key = k;}
 
-    BSTNode<K, V> *left() const {return lc;}
+    BSTNode* getLeft() const {return lc;}
     void setLeft(BinNode<V> *node) { this->lc = (BSTNode*)node;}
 
-    BSTNode<K, V> *right() const {return rc;}
+    BSTNode* getRight() const {return rc;}
     void setRight(BinNode<V> *node) {this->rc = (BSTNode*)node;}
 
     bool isLeaf() {return (this->lc == nullptr)&&(this->rc == nullptr);}

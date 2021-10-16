@@ -4,6 +4,7 @@
 */
 #include <iostream>
 
+// 打印list
 template<typename E>
 void list_show(E* list, int size) {
     std::cout << "[";
@@ -13,7 +14,7 @@ void list_show(E* list, int size) {
     std::cout << "]" << std::endl;
 }
 
-
+// 交换list中index为a，b的两个元素
 template<typename E>
 void swap(E* list, int a, int b) {
     E tmp = list[a];
@@ -22,28 +23,32 @@ void swap(E* list, int a, int b) {
 }
 
 // 插入排序
-void insertion_sort(int* list, int size) {
+template<typename E>
+void insertion_sort(E* list, int size) {
     for (int i = 1; i < size; ++i) {
-        int tmp = list[i];
-        int j = i-1;
-        for (; j >= 0; --j) {
-            if (tmp < list[j]) list[j+1] = list[j];
-            else break;
+        E tmp = list[i];
+        int j = i - 1;
+        while (j >= 0 && tmp < list[j]) {
+            list[j+1] = list[j];
+            j --;
         }
         list[j+1] = tmp;
     }
 }
 // 冒泡排序
-void bubble_sort(int* list, int size) {
-    for (int i = 0; i < size-1; ++i) {
-        for (int j = size-1; j > i; --j) {
+// 从每次表尾开始，小元素慢慢冒泡到前面
+template<typename E>
+void bubble_sort(E* list, int size) {
+    for (int i = 0; i < size - 1; ++i) {
+        for (int j = size - 1; j > i; --j) {
             if (list[j] < list[j-1]) swap(list, j, j-1);
         }
     }
 }
 // 选择排序
-void selection_sort(int* list, int size) {
-    for (int i = 0; i < size-1; ++i) {
+template<typename E>
+void selection_sort(E* list, int size) {
+    for (int i = 0; i < size - 1; ++i) {
         for (int j = i+1; j < size; ++j) {
             if (list[j] < list[i]) swap(list, i, j);
         }
@@ -51,7 +56,8 @@ void selection_sort(int* list, int size) {
 }
 
 // 归并排序
-void merge_sort(int* list, int size) {
+template<typename E>
+void merge_sort(E* list, int size) {
     if (size > 2) {
         int* a = list;
         int* b = &list[size/2];
