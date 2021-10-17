@@ -1,8 +1,6 @@
 #ifndef ALGORITHM_COMPARE_H
 #define ALGORITHM_COMPARE_H
 
-
-
 template<typename E>
 class Compare {
 public:
@@ -11,7 +9,7 @@ public:
 };
 
 
-
+// 数值最大比较器
 template<typename E>
 class MaxCompare : public Compare<E> {
 public:
@@ -20,6 +18,7 @@ public:
     }
 };
 
+// 数值最小比较器
 template<typename E>
 class MinCompare: public Compare<E> {
 public:
