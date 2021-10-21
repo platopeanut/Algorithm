@@ -1,6 +1,10 @@
 #ifndef ALGORITHM_COMPARE_H
 #define ALGORITHM_COMPARE_H
 
+/**
+ *  用于data structures 目录下的比较器
+ */
+
 template<typename E>
 class Compare {
 public:
