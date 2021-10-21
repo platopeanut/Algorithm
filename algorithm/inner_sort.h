@@ -55,6 +55,12 @@ void selection_sort(E* list, int size) {
     }
 }
 
+// Shell≈≈–Ú
+template<typename E>
+void shell_sort(E* list, int size) {
+
+}
+
 // πÈ≤¢≈≈–Ú
 template<typename E>
 void merge_sort(E* list, int size) {
