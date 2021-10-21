@@ -78,3 +78,15 @@ void merge_sort(E* list, int size) {
 
     }
 }
+
+// ©ЛкыеепР
+template<typename E>
+void quick_sort(E* list, int size) {
+
+}
+
+// ╤яеепР
+template<typename E>
+void heap_sort(E* list, int size) {
+
+}
