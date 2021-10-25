@@ -18,6 +18,7 @@ private:
 public:
     explicit Counter(std::string name = "default"):_name(std::move(name))
     { data = new std::map<std::string, size_t>;}
+    ~Counter() { delete data; }
     size_t getNum(const std::string& type) const {
         return (*data)[type];
     }
