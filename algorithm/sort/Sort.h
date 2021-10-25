@@ -1,13 +1,14 @@
 #ifndef ALGORITHM_SORT_H
 #define ALGORITHM_SORT_H
 
+#include "../../util/Counter.h"
 
 template<typename E>
 class Sort {
 private:
-    static void shell_sort_help(E* list, int size, int incr);
-    static void merge(E* list, int lo, int mid, int hi, E* aux);
-    static void merge_sort_help(E* list, int lo, int hi, E* aux);
+    static void shell_sort_help(E* list, int size, int incr, Counter* counter);
+    static void merge(E* list, int lo, int mid, int hi, E* aux, Counter* counter);
+    static void merge_sort_help(E* list, int lo, int hi, E* aux, Counter* counter);
     static int partition(E* list, int lo, int hi);
     static void quick_sort_help(E* list, int lo, int hi);
     static void swap(E* list, int a, int b);

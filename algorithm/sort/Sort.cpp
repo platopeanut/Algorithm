@@ -2,36 +2,49 @@
 #include <iostream>
 #include "../../util/Counter.h"
 
+/**
+ *  元素间比较次数、交换次数统计
+ */
+
 template<typename E>
-void Sort<E>::shell_sort_help(E *list, int size, int incr) {
+void Sort<E>::shell_sort_help(E *list, int size, int incr, Counter* counter) {
     for (int i = incr; i < size; i += incr) {
         auto tmp = list[i];
         int j = i - incr;
         for (;j >= 0 && list[j] > tmp; j -= incr) {
             list[j + incr] = list[j];
+            counter->tick("compare");
+            counter->tick("swap");
         }
         list[j + incr] = tmp;
+        counter->tick("swap");
     }
 }
 
 template<typename E>
-void Sort<E>::merge(E *list, int lo, int mid, int hi, E *aux) {
+void Sort<E>::merge(E *list, int lo, int mid, int hi, E *aux, Counter* counter) {
     int left = lo, right = mid + 1;
     // 将list[lo..hi]内容复制到aux[lo..hi]
     for (int i = lo; i <= hi; ++i) aux[i] = list[i];
     for (int i = lo; i <= hi; ++i) {
-        if (right > hi || aux[left] < aux[right]) list[i] = aux[left++];
-        else if (left > mid || aux[left] >= aux[right]) list[i] = aux[right++];
+        counter->tick("compare", 2);
+        if (right > hi || aux[left] < aux[right]) {
+            list[i] = aux[left++];
+            counter->tick("swap");
+        } else if (left > mid || aux[left] >= aux[right]) {
+            list[i] = aux[right++];
+            counter->tick("swap");
+        }
     }
 }
 
 template<typename E>
-void Sort<E>::merge_sort_help(E *list, int lo, int hi, E *aux) {
+void Sort<E>::merge_sort_help(E *list, int lo, int hi, E *aux, Counter* counter) {
     if (lo >= hi) return;
     int mid = lo + (hi - lo) / 2;
-    merge_sort_help(list, lo, mid, aux);
-    merge_sort_help(list, mid+1, hi, aux);
-    merge(list, lo, mid, hi, aux);
+    merge_sort_help(list, lo, mid, aux, counter);
+    merge_sort_help(list, mid+1, hi, aux, counter);
+    merge(list, lo, mid, hi, aux, counter);
 }
 
 template<typename E>
@@ -74,50 +87,71 @@ void Sort<E>::swap(E *list, int a, int b) {
 
 template<typename E>
 void Sort<E>::insertion_sort(E *list, int size) {
+    Counter counter("insertion_sort");
     for (int i = 1; i < size; ++i) {
         E tmp = list[i];
         int j = i - 1;
         while (j >= 0 && tmp < list[j]) {
             list[j+1] = list[j];
             j --;
+            counter.tick("compare");
+            counter.tick("swap"); // list[j+1] = list[j];我认为算
         }
         list[j+1] = tmp;
+        counter.tick("swap");
     }
+    counter.show();
 }
 
 template<typename E>
 void Sort<E>::bubble_sort(E *list, int size) {
+    Counter counter("bubble_sort");
     for (int i = 0; i < size - 1; ++i) {
         for (int j = size - 1; j > i; --j) {
-            if (list[j] < list[j-1]) swap(list, j, j-1);
+            counter.tick("compare");
+            if (list[j] < list[j-1]) {
+                swap(list, j, j-1);
+                counter.tick("swap");
+            }
         }
     }
+    counter.show();
 }
 
 template<typename E>
 void Sort<E>::selection_sort(E *list, int size) {
+    Counter counter("selection_sort");
     for (int i = 0; i < size - 1; ++i) {
         for (int j = i+1; j < size; ++j) {
-            if (list[j] < list[i]) swap(list, i, j);
+            counter.tick("compare");
+            if (list[j] < list[i]) {
+                swap(list, i, j);
+                counter.tick("swap");
+            }
         }
     }
+    counter.show();
 }
 
 template<typename E>
 void Sort<E>::shell_sort(E *list, int size) {
+    Counter counter("shell_sort");
     // i: 增量
     for (int i = size / 2; i > 0; i /= 2) {
         for (int j = 0; j < i; ++j) {
-            shell_sort_help(&list[j], size - j, i);
+            shell_sort_help(&list[j], size - j, i, &counter);
         }
     }
+    counter.show();
 }
 
 template<typename E>
 void Sort<E>::merge_sort(E *list, int size) {
+    Counter counter("merge_sort");
     E* aux = new E[size];
-    merge_sort_help(list, 0, size - 1, aux);
+    merge_sort_help(list, 0, size - 1, aux, &counter);
     delete[] aux;
+    counter.show();
 }
 
 template<typename E>

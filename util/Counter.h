@@ -22,8 +22,8 @@ public:
     size_t getNum(const std::string& type) const {
         return (*data)[type];
     }
-    void tick(const std::string& type) {
-        (*data)[type]++;
+    void tick(const std::string& type, size_t times = 1) {
+        (*data)[type] += times;
     }
     void show() {
         std::cout << "[Counter]" << _name << ":" << std::endl;
