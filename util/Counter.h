@@ -8,31 +8,28 @@
 #include <iostream>
 #include <string>
 #include <utility>
-#include "../dataStructures/list/LinkedList.h"
+#include <map>
+
 
 class Counter {
 private:
-    static int index;
     std::string _name;
-    LinkedList<long>* list = new LinkedList<long>;
+    std::map<std::string, size_t>* data;
 public:
-    explicit Counter(std::string name):_name(std::move(name)){
-        list->append(0);
+    explicit Counter(std::string name = "default"):_name(std::move(name))
+    { data = new std::map<std::string, size_t>;}
+    size_t getNum(const std::string& type) const {
+        return (*data)[type];
     }
-    Counter() {
-        _name = std::to_string(index++);
-        list->append(0);
+    void tick(const std::string& type) {
+        (*data)[type]++;
     }
-    long getNum(int type = 0) const {
-        list->moveToPos(type);
-        return list->getValue();
+    void show() {
+        std::cout << "[Counter]" << _name << ":" << std::endl;
+        if (data == nullptr) return;
+        for (const auto& iter: *data) std::cout << iter.first << ": " << iter.second << std::endl;
     }
-    void tick(int type = 0) {
-        list->moveToPos(type)
-    }
-    void show() {std::cout << "[Counter]" << _name << ": " << _num << "times" << std::endl;}
 };
 
-int Counter::index = 0;
 
 #endif //ALGORITHM_COUNTER_H
