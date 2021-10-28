@@ -3,7 +3,8 @@
 *  内：计算机内存中
 */
 #include <iostream>
-
+#include <stack>
+#include <ctime>
 // 打印list
 template<typename E>
 void list_show(E* list, int size) {
@@ -20,6 +21,20 @@ void swap(E* list, int a, int b) {
     E tmp = list[a];
     list[a] = list[b];
     list[b] = tmp;
+}
+
+//打乱数组
+template<typename E>
+void shuffle(E* list, int size) {
+    srand(unsigned(time(nullptr)));
+    for (int i = 0; i < size; ++i) {
+        int index = rand() % (size - i) + i;
+        if (index != i) {
+            auto tmp = list[index];
+            list[index] = list[i];
+            list[i] = tmp;
+        }
+    }
 }
 
 // 插入排序
@@ -118,17 +133,58 @@ int partition(E* list, int lo, int hi) {
     return left;
 }
 template<typename E>
-void quick_sort_help(E* list, int lo, int hi) {
+void quick_sort_help_with_recursion(E* list, int lo, int hi) {
     if (lo >= hi) return;
     int mid = partition(list, lo, hi);
-    quick_sort_help(list, lo, mid - 1);
-    quick_sort_help(list, mid + 1, hi);
+    quick_sort_help_with_recursion(list, lo, mid - 1);
+    quick_sort_help_with_recursion(list, mid + 1, hi);
 }
 template<typename E>
-void quick_sort(E* list, int size) {
+void quick_sort_with_recursion(E* list, int size) {
     // 这里可以将list先打乱，降低出现最坏情况概率
-    quick_sort_help(list, 0, size - 1);
+    shuffle(list, size);
+    quick_sort_help_with_recursion(list, 0, size - 1);
 }
+
+
+// 使用Stack实现快速排序
+template<typename E>
+void quick_sort(E* list, int size) {
+    // 先打乱数组
+    shuffle(list, size);
+    std::stack<int> stack;
+    stack.push(0);
+    stack.push(size - 1);
+    while (!stack.empty()) {
+        int hi = stack.top();
+        stack.pop();
+        int lo = stack.top();
+        stack.pop();
+        // !!!!!!!!!!check
+        if (lo >= hi) continue;
+        // partition
+        int left = lo, right = hi;
+        E pivot = list[left];
+        while (left != right) {
+            while (left != right && list[right] >= pivot) right --;
+            list[left] = list[right];
+            while (left != right && list[left] < pivot) left ++;
+            list[right] = list[left];
+        }
+        int mid = left;
+        list[mid] = pivot;
+        // solve lo..mid-1
+        stack.push(lo);
+        stack.push(mid - 1);
+        // solve mid+1..hi
+        stack.push(mid + 1);
+        stack.push(hi);
+    }
+}
+
+
+
+
 
 
 
