@@ -55,9 +55,50 @@ def selection_sort(array: list):
                 array[i], array[j] = array[j], array[i]
 
 
+class Node:
+    def __init__(self, value=None, _next=None):
+        self.value = value
+        self.next = _next
+
+    def __repr__(self):
+        return self.__str__()
+
+    def __str__(self):
+        if self.value is not None:
+            info = f"Node({self.value})"
+            if self.next is not None:
+                info += self.next.__str__()
+            return info
+        else:
+            return f"Node()"
+
+
+def radix_sort(array: list, w=0):
+    # put in
+    bucket = [Node() for i in range(10)]
+    for i in array:
+        slot = bucket[(i // 10**w) % 10]
+        while slot.next is not None:
+            slot = slot.next
+        slot.value = i
+        slot.next = Node()
+    print(bucket)
+    # pick up
+    index = 0
+    for i in bucket:
+        while i.next is not None:
+            array[index] = i.value
+            i = i.next
+            index += 1
+    if bucket[1].value is None:
+        return
+    radix_sort(array, w+1)
+
+
 if __name__ == '__main__':
-    a = [i for i in range(1000000, 0, -1)]
+    a = [i for i in range(100, 0, -1)]
+    # for i in range(10):
+    #     a.append(random.randint(0, 100))
     print(a)
-    quick_sort(a)
-    # selection_sort(a)
+    radix_sort(a)
     print(a)

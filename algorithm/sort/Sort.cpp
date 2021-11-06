@@ -1,5 +1,6 @@
 #include "Sort.h"
 #include <iostream>
+#include <ctime>
 #include "../../util/Counter.h"
 
 /**
@@ -48,25 +49,28 @@ void Sort<E>::merge_sort_help(E *list, int lo, int hi, E *aux, Counter* counter)
 }
 
 template<typename E>
-int Sort<E>::partition(E *list, int lo, int hi) {
+int Sort<E>::partition(E *list, int lo, int hi, Counter* counter) {
     E pivot = list[lo];
     int left = lo, right = hi;
     while (left != right) {
-        while (right != lo && list[right] >= pivot) right --;
+        while (left != right && list[right] >= pivot) right --;
         list[left] = list[right];
-        while (left != hi && list[left] < pivot) left ++;
+        while (left != right && list[left] < pivot) left ++;
         list[right] = list[left];
+        counter->tick("compare", 2);
+        counter->tick("swap");
     }
     list[left] = pivot;
+    counter->tick("swap");
     return left;
 }
 
 template<typename E>
-void Sort<E>::quick_sort_help(E *list, int lo, int hi) {
+void Sort<E>::quick_sort_help(E *list, int lo, int hi, Counter* counter) {
     if (lo >= hi) return;
-    int mid = partition(list, lo, hi);
-    quick_sort_help(list, lo, mid - 1);
-    quick_sort_help(list, mid + 1, hi);
+    int mid = partition(list, lo, hi, counter);
+    quick_sort_help(list, lo, mid - 1, counter);
+    quick_sort_help(list, mid + 1, hi, counter);
 }
 
 template<typename E>
@@ -156,6 +160,23 @@ void Sort<E>::merge_sort(E *list, int size) {
 
 template<typename E>
 void Sort<E>::quick_sort(E *list, int size) {
+    auto* counter = new Counter("quick sort");
     // 这里可以将list先打乱，降低出现最坏情况概率
-    quick_sort_help(list, 0, size - 1);
+    shuffle(list, size);
+    quick_sort_help(list, 0, size - 1, counter);
+    counter->show();
+    delete counter;
+}
+
+template<typename E>
+void Sort<E>::shuffle(E *list, int size) {
+    srand(unsigned(time(nullptr)));
+    for (int i = 0; i < size; ++i) {
+        int index = rand() % (size - i) + i;
+        if (index != i) {
+            auto tmp = list[index];
+            list[index] = list[i];
+            list[i] = tmp;
+        }
+    }
 }

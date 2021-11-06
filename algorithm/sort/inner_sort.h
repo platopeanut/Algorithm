@@ -2,42 +2,17 @@
 *  内排序
 *  内：计算机内存中
 */
-#include <iostream>
+
+#include "../../util/list_tool.h"
+#include <vector>
 #include <stack>
-#include <ctime>
-// 打印list
-template<typename E>
-void list_show(E* list, int size) {
-    std::cout << "[";
-    for (int i = 0; i < size; ++i) {
-        std::cout << list[i] << " ";
-    }
-    std::cout << "]" << std::endl;
-}
+#include "../../dataStructures/heap/Heap.cpp"
 
-// 交换list中index为a，b的两个元素
-template<typename E>
-void swap(E* list, int a, int b) {
-    E tmp = list[a];
-    list[a] = list[b];
-    list[b] = tmp;
-}
 
-//打乱数组
-template<typename E>
-void shuffle(E* list, int size) {
-    srand(unsigned(time(nullptr)));
-    for (int i = 0; i < size; ++i) {
-        int index = rand() % (size - i) + i;
-        if (index != i) {
-            auto tmp = list[index];
-            list[index] = list[i];
-            list[i] = tmp;
-        }
-    }
-}
+/**
+*  插入排序
+*/
 
-// 插入排序
 template<typename E>
 void insertion_sort(E* list, int size) {
     for (int i = 1; i < size; ++i) {
@@ -50,8 +25,26 @@ void insertion_sort(E* list, int size) {
         list[j+1] = tmp;
     }
 }
-// 冒泡排序
-// 从每次表尾开始，小元素慢慢冒泡到前面
+
+template<typename E>
+void insertion_sort(std::vector<E>& list) {
+    for (int i = 1; i < list.size(); ++i) {
+        E tmp = list[i];
+        int j = i - 1;
+        while (j >= 0 && tmp < list[j]) {
+            list[j+1] = list[j];
+            j --;
+        }
+        list[j+1] = tmp;
+    }
+}
+
+/**
+ *
+ * 冒泡排序
+ * 从每次表尾开始，小元素慢慢冒泡到前面
+ */
+
 template<typename E>
 void bubble_sort(E* list, int size) {
     for (int i = 0; i < size - 1; ++i) {
@@ -60,7 +53,11 @@ void bubble_sort(E* list, int size) {
         }
     }
 }
-// 选择排序
+
+/**
+ *  选择排序
+ */
+
 template<typename E>
 void selection_sort(E* list, int size) {
     for (int i = 0; i < size - 1; ++i) {
@@ -70,7 +67,10 @@ void selection_sort(E* list, int size) {
     }
 }
 
-// Shell排序
+/**
+ *  希尔排序
+ */
+
 template<typename E>
 void shell_sort_help(E* list, int size, int incr) {
     for (int i = incr; i < size; i += incr) {
@@ -92,7 +92,10 @@ void shell_sort(E* list, int size) {
     }
 }
 
-// 归并排序
+/**
+ *  归并排序
+ */
+
 template<typename E>
 void merge(E* list, int lo, int mid, int hi, E* aux) {
     int left = lo, right = mid + 1;
@@ -118,7 +121,98 @@ void merge_sort(E* list, int size) {
     delete[] aux;
 }
 
-// 快速排序
+
+/**
+*  归并排序：输入为链表
+*/
+template<typename E>
+void merge_sort(Node<E>* head) {
+    // 长度为0或1直接返回
+    if (head == nullptr || head->next == nullptr) return;
+    auto* left = head;
+    auto* right = head->next;
+    auto* curr = head->next->next;
+    auto* ll = left;
+    auto* rr = right;
+    bool flag = true;
+    while (curr != nullptr) {
+        if (flag) {
+            ll->next = curr;
+            ll = ll->next;
+            flag = !flag;
+        } else {
+            rr->next = curr;
+            rr = rr->next;
+            flag = !flag;
+        }
+        curr = curr->next;
+    }
+    ll->next = nullptr;
+    rr->next = nullptr;
+    // 防止乱指
+    merge_sort(left);
+    merge_sort(right);
+    // merge
+    // first
+    if (left->data <= right->data) {
+        head = left;
+        left = left->next;
+    } else {
+        head = right;
+        right = right->next;
+    }
+    auto* hh = head;
+    while (true) {
+        if (right == nullptr || left->data < right->data) {
+            hh->next = left;
+            left = left->next;
+            hh = hh->next;
+        }
+        else if (left == nullptr || left->data >= right->data) {
+            hh->next = right;
+            right = right->next;
+            hh = hh->next;
+        } else break;
+    }
+    hh->next = nullptr;
+//    if (size <= 1) return;
+//    auto* left = head;
+//    auto* right = head;
+//    int left_size = size / 2;
+//    int right_size = size - left_size;
+//    // O(n)
+//    for (int i = 0; i < left_size; ++i) right = right->next;
+//    merge_sort(left, left_size);
+//    merge_sort(right, right_size);
+//    // merge
+//    // init cur
+//    Node<E>* curr;
+//    if (left->data < right->data) {
+//        curr = head = left;
+//        left = left->next;
+//    } else {
+//        curr = head = right;
+//        right = right->next;
+//    }
+//    for (int i = 0; i < size - 1; ++i) {
+//        if (right == nullptr || left->data < right->data) {
+//            curr->next = left;
+//            left = left->next;
+//        } else {
+//            curr->next = right;
+//            right = right->next;
+//        }
+//        curr = curr->next;
+//        curr->next = nullptr;
+//    }
+//    nodes_show(head);
+}
+
+
+/**
+ *  快速排序：递归实现
+ */
+
 template<typename E>
 int partition(E* list, int lo, int hi) {
     E pivot = list[lo];
@@ -146,8 +240,10 @@ void quick_sort_with_recursion(E* list, int size) {
     quick_sort_help_with_recursion(list, 0, size - 1);
 }
 
+/**
+ *  快速排序： 栈实现
+ */
 
-// 使用Stack实现快速排序
 template<typename E>
 void quick_sort(E* list, int size) {
     // 先打乱数组
@@ -183,13 +279,78 @@ void quick_sort(E* list, int size) {
 }
 
 
+/**
+ *  堆排序
+ */
 
-
-
-
-
-// 堆排序
 template<typename E>
 void heap_sort(E* list, int size) {
+    auto* heap = new Heap<E>(list, size, size, new MinCompare<E>);
+    for (int i = 0; i < size; ++i) list[i] = heap->removeFirst();
+    delete heap;
+}
+
+//template<typename E>
+//void heap_sort(E* list, int size) {
+//    auto* heap = new Heap<E>(list, size, size, new MaxCompare<E>);
+//    // if heap设计的是list不复制，可以直接这么写
+//    for (int i = 0; i < size; ++i) heap->removeFirst();
+//    delete heap;
+//}
+
+/**
+ *  以下排序都是分配排序，先分类再排序
+ */
+
+
+/**
+ *  桶排序(箱排序)
+ */
+
+//template<typename E>
+//void bucket_sort(E* list, int size) {
+//    E* tmp = new E[size];
+//    for (int i = 0; i < size; ++i) tmp[list[i]] = list[i];
+//    for (int i = 0; i < size; ++i) list[i] = tmp[i];
+//    delete[] tmp;
+//}
+
+template<typename E>
+void bucket_sort(E* list, int size) {
+    E max = list_max(list, size);
+    E min = list_min(list, size);
+    // 分为10个桶
+    int bucket_num = (max - min + 1) / 10;
+    /**
+     * // TODO
+     *  一般桶的数量是多少？  映射函数一般是 f = array[i] / k; k^2 = n; n是所有元素个数
+     */
+    auto buckets = std::vector<std::vector<E>>(bucket_num);
+    // push
+    for (int i = 0; i < size; ++i) {
+        int j = (list[i] - min) / bucket_num;
+        buckets[j].push_back(list[i]);
+    }
+    // 每个桶内元素进行插入排序
+    for (int i = 0; i < buckets.size(); ++i) insertion_sort(buckets[i]);
+    // join
+    for (int i = 0, j = 0; i < bucket_num; ++i)
+        for (int k = 0; k < buckets[i].size(); ++k)
+            list[j++] = buckets[i][k];
+}
+
+/**
+ *  计数排序
+ */
+
+template<typename E>
+void counting_sort(E* list, int size) {
+    E max = list_max(list, size);
+    E min = list_min(list, size);
 
 }
+
+/**
+ *  基数排序
+ */
+

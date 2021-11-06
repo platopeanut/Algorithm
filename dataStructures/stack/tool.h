@@ -1,4 +1,4 @@
-#ifndef ALGORITHM_TOOL_H
+#ifndef ALGORITHM_LIST_TOOL_H
 #define ALGORITHM_TOOL_H
 
 //#include "Stack.h"
@@ -8,4 +8,4 @@
 //    stack->
 //}
 
-#endif //ALGORITHM_TOOL_H
+#endif //ALGORITHM_LIST_TOOL_H
