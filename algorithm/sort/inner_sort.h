@@ -347,10 +347,36 @@ template<typename E>
 void counting_sort(E* list, int size) {
     E max = list_max(list, size);
     E min = list_min(list, size);
-
+    // TODO: 小数怎么办
+    int length = max - min + 1;
+    E* count_list = new E[length];
+    // reset
+    for (int i = 0; i < length; ++i) count_list[i] = 0;
+    // count
+    for (int i = 0; i < size; ++i) count_list[list[i] - min] ++;
+    // collect
+    for (int i = 0, index = 0; i < length; ++i)
+        for (int j = 0; j < count_list[i]; ++j)
+            list[index++] = i + min;
 }
 
 /**
- *  基数排序
+ *  基数排序:  适用于整数
  */
-
+void radix_sort(int* list, int size) {
+    const int RADIX = 10;
+    int max = list_max(list, size);
+    int placement = 1;
+    while (placement <= max) {
+        std::vector<std::vector<int>> buckets(RADIX);
+        // push
+        for (int i = 0; i < size; ++i) {
+            buckets[(list[i] / placement) % RADIX].push_back(list[i]);
+        }
+        // collect
+        for (int i = 0, index = 0; i < RADIX; ++i)
+            for (int j : buckets[i])
+                list[index++] = j;
+        placement *= RADIX;
+    }
+}
