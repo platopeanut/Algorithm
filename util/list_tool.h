@@ -96,16 +96,17 @@ Node<E>* load_nodes(E* list, int size) {
 // 打印一个链表
 template<typename E>
 void nodes_show(Node<E>* node) {
+    auto* curr = node;
     std::cout << "Nodes[";
-    while (node != nullptr) {
-        std::cout << node->data << "->";
-        node = node->next;
+    while (curr != nullptr) {
+        std::cout << curr->data << "->";
+        curr = curr->next;
     }
     std::cout << "]" << std::endl;
 }
 
 
-// 获取list中最大值
+// 获取list中最大值 O(n)
 template<typename E>
 E list_max(E* list, int size) {
     if (size <= 0) throw StringException("list_max()=>size must be > 0 !");
@@ -115,14 +116,22 @@ E list_max(E* list, int size) {
 }
 
 
-// 获取list中最小值
+// 获取list中最小值 O(n)
 template<typename E>
 E list_min(E* list, int size) {
-    if (size <= 0) throw StringException("list_max()=>size must be > 0 !");
+    if (size <= 0) throw StringException("list_min()=>size must be > 0 !");
     E min = list[0];
     for (int i = 0; i < size; ++i) if (list[i] < min) min = list[i];
     return min;
 }
 
+// 获取list中算术平均值 O(n)
+template<typename E>
+double list_mean(E* list, int size) {
+    if (size < 0) throw StringException("list_min()=>size must be > 0 !");
+    double sum = 0.0;
+    for (int i = 0; i < size; ++i) sum += list[i];
+    return sum / size;
+}
 
 #endif //ALGORITHM_LIST_TOOL_H

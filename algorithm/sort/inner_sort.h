@@ -1,3 +1,7 @@
+#ifndef ALGORITHM_INNER_SORT_H
+#define ALGORITHM_INNER_SORT_H
+
+
 /**
 *  内排序
 *  内：计算机内存中
@@ -126,15 +130,16 @@ void merge_sort(E* list, int size) {
 *  归并排序：输入为链表
 */
 template<typename E>
-void merge_sort(Node<E>* head) {
+Node<E>* merge_sort(Node<E>* head) {
     // 长度为0或1直接返回
-    if (head == nullptr || head->next == nullptr) return;
+    if (head == nullptr || head->next == nullptr) return head;
     auto* left = head;
     auto* right = head->next;
     auto* curr = head->next->next;
     auto* ll = left;
     auto* rr = right;
     bool flag = true;
+    // 由于链表长度未知，故采用交替分配保持均分
     while (curr != nullptr) {
         if (flag) {
             ll->next = curr;
@@ -147,65 +152,44 @@ void merge_sort(Node<E>* head) {
         }
         curr = curr->next;
     }
+    // 防止乱指
     ll->next = nullptr;
     rr->next = nullptr;
-    // 防止乱指
-    merge_sort(left);
-    merge_sort(right);
+    // 先左右排好
+    left = merge_sort(left);
+    right = merge_sort(right);
     // merge
     // first
-    if (left->data <= right->data) {
-        head = left;
-        left = left->next;
-    } else {
+    if (right->data < left->data) {
         head = right;
         right = right->next;
+    } else {
+        head = left;
+        left = left->next;
     }
     auto* hh = head;
     while (true) {
-        if (right == nullptr || left->data < right->data) {
-            hh->next = left;
-            left = left->next;
-            hh = hh->next;
-        }
-        else if (left == nullptr || left->data >= right->data) {
+        if (left == nullptr && right == nullptr) break;
+        else if (left == nullptr) {
             hh->next = right;
             right = right->next;
             hh = hh->next;
-        } else break;
+        } else if (right == nullptr) {
+            hh->next = left;
+            left = left->next;
+            hh = hh->next;
+        } else if (left->data < right->data) {
+            hh->next = left;
+            left = left->next;
+            hh = hh->next;
+        } else {
+            hh->next = right;
+            right = right->next;
+            hh = hh->next;
+        }
     }
     hh->next = nullptr;
-//    if (size <= 1) return;
-//    auto* left = head;
-//    auto* right = head;
-//    int left_size = size / 2;
-//    int right_size = size - left_size;
-//    // O(n)
-//    for (int i = 0; i < left_size; ++i) right = right->next;
-//    merge_sort(left, left_size);
-//    merge_sort(right, right_size);
-//    // merge
-//    // init cur
-//    Node<E>* curr;
-//    if (left->data < right->data) {
-//        curr = head = left;
-//        left = left->next;
-//    } else {
-//        curr = head = right;
-//        right = right->next;
-//    }
-//    for (int i = 0; i < size - 1; ++i) {
-//        if (right == nullptr || left->data < right->data) {
-//            curr->next = left;
-//            left = left->next;
-//        } else {
-//            curr->next = right;
-//            right = right->next;
-//        }
-//        curr = curr->next;
-//        curr->next = nullptr;
-//    }
-//    nodes_show(head);
+    return head;
 }
 
 
@@ -380,3 +364,6 @@ void radix_sort(int* list, int size) {
         placement *= RADIX;
     }
 }
+
+
+#endif //ALGORITHM_INNER_SORT_H

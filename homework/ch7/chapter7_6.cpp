@@ -46,7 +46,9 @@ public:
     bool operator>=(const Int_with_track &rhs) const {
         return !(*this < rhs);
     }
+
 };
+
 
 int main()
 {
@@ -62,7 +64,7 @@ int main()
         list[index].flag = i;
         list[index]._track = true;
     }
-    std::cout << "²åÈëÅÅÐò£º" << std::endl;
+    std::cout << "ÅÅÐò£º" << std::endl;
     list_show(list, size);
 //    insertion_sort(list, size);
 //    bubble_sort(list, size);
@@ -70,6 +72,7 @@ int main()
 //    shell_sort(list, size);
 //    merge_sort(list, size);
 //    quick_sort(list, size);
+//    heap_sort(list, size);
     list_show(list, size);
     return 0;
 }

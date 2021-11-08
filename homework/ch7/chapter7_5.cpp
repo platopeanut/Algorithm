@@ -62,3 +62,21 @@ int main()
     list_show(list2, size);
     return 0;
 }
+
+// 测试时间
+int main()
+{
+    Timer timer;
+    int size = 3000;
+    int* list1 = new int[size];
+    int* list2 = new int[size];
+    srand((unsigned) time(nullptr));
+    for (int i = 0; i < size; ++i) list1[i] = list2[i] = rand() % size;
+    timer.start("优化前");
+    selection_sort(list1, size);
+    timer.finish();
+    timer.start("优化后");
+    selection_sort_upgrade(list2, size);
+    timer.finish();
+    return 0;
+}

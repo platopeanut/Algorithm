@@ -1,11 +1,11 @@
 #include <stack>
 #include <iostream>
-#include "./util/tool.h"
+#include "./util/list_tool.h"
 // 使用Stack实现快速排序
 template<typename E>
 void quick_sort(E* list, int size) {
     // 先打乱数组
-    shuffle(list, size);
+//    shuffle(list, size);
     std::stack<int> stack;
     stack.push(0);
     stack.push(size - 1);
@@ -55,7 +55,7 @@ void quick_sort(E* list, int size) {
 template<typename E>
 void quick_sort_forward(E* list, int size) {
     // 先打乱数组
-    shuffle(list, size);
+//    shuffle(list, size);
     std::stack<int> stack;
     stack.push(0);
     stack.push(size - 1);
@@ -115,7 +115,7 @@ void quick_sort_forward(E* list, int size) {
 template<typename E>
 void quick_sort_backward(E* list, int size) {
     // 先打乱数组
-    shuffle(list, size);
+//    shuffle(list, size);
     std::stack<int> stack;
     stack.push(0);
     stack.push(size - 1);

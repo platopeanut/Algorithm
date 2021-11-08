@@ -35,7 +35,7 @@ void list_show(E* list, int size) {
 int main()
 {
     srand(unsigned (time(nullptr)));
-    int size = 20;
+    int size = 10;
     int* list = new int[size];
     for (int i = 0; i < size; ++i) list[i] = rand() % 20;
 //    for (int i = 0; i < size; ++i) list[i] = size - i;
