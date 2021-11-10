@@ -2,7 +2,7 @@
 #define ALGORITHM_LISTGRAPH_H
 #include "./Graph.h"
 #include "../list/List.h"
-#include "../list/LinkedList.h"
+#include "../list/LinkedList.cpp"
 
 /**
  *  邻接表实现中链表元素类型

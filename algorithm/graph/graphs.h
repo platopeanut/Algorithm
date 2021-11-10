@@ -14,8 +14,9 @@ void graph_traverse(Graph* G) {
     for (int i = 0; i < G->V(); ++i)
         G->setMark(i, UNVISITED);
     for (int i = 0; i < G->V(); ++i)
-        if (G->getMark(i) == UNVISITED)
+        if (G->getMark(i) == UNVISITED) {
             // doSomething()
+        }
 }
 
 /**
@@ -38,8 +39,6 @@ void DFS(Graph* G, int v) {
 void BFS(Graph* G, int v) {
     // pre_do()
     G->setMark(v, VISITED);
-
-
     // post_do()
 }
 
