@@ -1,5 +1,4 @@
 #include "ListGraph.h"
-#include "../../util/StringException.h"
 
 ListGraph::~ListGraph() {
     delete[] mark_list;
@@ -57,14 +56,12 @@ void ListGraph::setEdge(int v1, int v2, int weight) {
             vertex_list[v1]->insert(Edge(v2, weight));
             return;
         }
-        else if (curr > v2) {
-            // TODO: 这里是否需要先前移
-            edge_num ++;
-            vertex_list[v1]->insert(Edge(v2, weight));
-            return;
-        }
+        else if (curr > v2) break; // 注意这里是break
         vertex_list[v1]->next();
     }
+    // 考虑特殊情况：长度为0时，以及v2是表中最大元素
+    edge_num ++;
+    vertex_list[v1]->insert(Edge(v2, weight));
 }
 
 void ListGraph::delEdge(int v1, int v2) {

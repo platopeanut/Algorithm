@@ -56,6 +56,21 @@ public:
     int getMark(int v) override;
 
     void setMark(int v, int mark) override;
+
+    // ²âÊÔº¯Êı
+    void show() {
+        for (int i = 0; i < this->vertex_num; ++i) {
+            auto* list = this->vertex_list[i];
+            std::cout << "List[";
+            list->moveToStart();
+            for (int j = 0; j < list->length(); ++j) {
+                std::cout << list->getValue().vertex << ", ";
+                list->next();
+            }
+            std::cout << "]" << std::endl;
+        }
+        std::cout << "---------------" << std::endl;
+    }
 };
 
 

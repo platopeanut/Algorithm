@@ -1,3 +1,6 @@
+#ifndef ALGORITHM_LINKEDLIST_CPP
+#define ALGORITHM_LINKEDLIST_CPP
+
 #include <iostream>
 #include "LinkedList.h"
 #include "../../util/StringException.h"
@@ -148,3 +151,5 @@ void LinkedList<E>::reverse() {
         head->next = curr;
     }
 }
+
+#endif //ALGORITHM_LINKEDLIST_CPP
