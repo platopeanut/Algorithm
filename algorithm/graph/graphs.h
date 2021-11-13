@@ -11,7 +11,7 @@
 #include "../../dataStructures/stack/LinkedStack.h"
 #include "../../dataStructures/queue/LinkedQueue.cpp"
 #include "../../dataStructures/graph/ListGraph.h"
-
+#include <vector>
 /**
  *  重置标记数组
  */
@@ -93,7 +93,7 @@ void top_sort_recursion(Graph* G) {
     for (int i = 0; i < G->V(); ++i)
         if (G->getMark(i) == UNVISITED) {
             top_sort_recursion_help(G, i);
-            std::cout << " | ";
+//            std::cout << " | ";
         }
     std::cout << std::endl;
 }
@@ -125,21 +125,24 @@ void top_sort_queue(Graph* G) {
     delete queue;
 }
 
-// 寻找以v点开始的回路
-void seek_loop(Graph* G, int v) {
-    /**
-     *  TODO
-     */
-    Stack<int>* stack = new LinkedStack<int>;
-    stack->push(v);
-    while (stack->length() > 0) {
-        int curr = stack->pop();
-        G->setMark(curr, VISITED);
-        for (int i = G->first(curr); i < G->V(); i = G->next(curr, i)) {
-            if (G->getMark(i) == UNVISITED) stack->push(i);
+// 寻找以v点开始的回路,vector用于记录回路信息
+void seek_loop(Graph* G, int v, std::vector<int>* vector) {
+    // 如果v没有后续顶点直接喊他滚
+    if (G->first(v) != G->V()) {
+        G->setMark(v, VISITED);
+        vector->push_back(v);
+    } else return;
+    for (int curr = G->first(v); curr < G->V(); curr = G->next(v, curr)) {
+        if (G->getMark(curr) == UNVISITED) {
+            seek_loop(G, curr, vector);
+        } else if (vector->front() == curr) {
+            std::cout << "存在回路：" << std::endl;
+            for (int i : *vector) std::cout << i << " ";
+            std::cout << std::endl;
         }
     }
-    delete stack;
+    G->setMark(v, UNVISITED);
+    vector->pop_back();
 }
 
 // 基于队列实现，并检查回路
@@ -169,11 +172,13 @@ void top_sort_queue_check_loop(Graph* G) {
         }
     }
     // 排查回路
+    std::cout << std::endl;
     for (int i = 0; i < G->V(); ++i) {
         if (G->getMark(i) == UNVISITED) {
-            std::cout << "\n存在回路: ";
             // 寻找回路
-            seek_loop(G, i);
+            auto* vector = new std::vector<int>;
+            seek_loop(G, i, vector);
+            delete vector;
         }
     }
     delete[] count;

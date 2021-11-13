@@ -38,8 +38,7 @@ void load2(Graph* graph) {
 int main()
 {
     // 这里之所以创建7个点，原因是下标方便与图 11.26 上的点下标保持一致
-    Graph* graph = new MatrixGraph(8);
-//    Graph* graph = new ListGraph(7);
+    Graph* graph = new MatrixGraph(7);
     // 加载图 11.26
     load2(graph);
     std::cout << "基于递归：" << std::endl;
