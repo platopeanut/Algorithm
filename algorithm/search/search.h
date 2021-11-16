@@ -40,11 +40,13 @@ private:
     // 返回该值在list中的下标，若该value不在list中，则返回size
     int seek(const T value) {
         int i;
-        for (i = 0; i < size; ++i, counter->tick("compare"))
+        for (i = 0; i < size; ++i) {
+            counter->tick("compare");
             if (list[i] == value) {
-                record[i] ++;
+                record[i]++;
                 break;
             }
+        }
         return i;
     }
 public:

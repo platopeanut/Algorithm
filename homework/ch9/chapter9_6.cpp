@@ -12,9 +12,9 @@ int main()
 
     char find_list[]= {'D','H','H','G','H','E','G','H','G','H','E','C','E','H','G'};
     for (char i : find_list) {
-//        table->count(i);
+        table->count(i);
 //        table->moveToFront(i);
-        table->transpose(i);
+//        table->transpose(i);
     }
     table->show();
     table->counter_show();
