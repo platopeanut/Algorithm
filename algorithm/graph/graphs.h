@@ -11,7 +11,9 @@
 #include "../../dataStructures/stack/LinkedStack.h"
 #include "../../dataStructures/queue/LinkedQueue.cpp"
 #include "../../dataStructures/graph/ListGraph.h"
+#include "../../util/list_tool.h"
 #include <vector>
+
 /**
  *  重置标记数组
  */
@@ -184,5 +186,98 @@ void top_sort_queue_check_loop(Graph* G) {
     delete[] count;
     delete queue;
 }
+
+
+/**
+ *  最短路径算法
+ */
+
+void print_path(Graph* graph, int start, std::vector<int>* vector) {
+    for (int i = graph->first(start); i < graph->V(); i = graph->next(start, i)) {
+        vector->push_back(i);
+        // print queue
+        for (auto item: *vector) std::cout << item << "->";
+        std::cout << std::endl;
+        print_path(graph, i, vector);
+        vector->pop_back();
+    }
+}
+
+void parse_path(const int* parent, int size, int start = 0) {
+    Graph* graph = new MatrixGraph(size);
+    for (int i = 0; i < size; ++i) {
+        if (parent[i] != -1) {
+            graph->setEdge(parent[i], i, 1);
+        }
+    }
+    auto* vector = new std::vector<int>;
+    vector->push_back(start);
+    print_path(graph, start, vector);
+    delete graph;
+    delete vector;
+}
+
+
+// Dijkstra
+/**
+ * @param graph 加权图
+ * @param v 源顶点
+ */
+void Dijkstra(Graph* graph, int v) {
+    // size 用于显示当前未标记的个数
+    int size = graph->V();
+    reset_mark(graph);
+    // 记录源顶点到当前顶点的最短距离
+    int* distance = new int[size];
+    for (int i = 0; i < size; ++i) distance[i] = -1; // 这里的-1表示逻辑上的正无穷
+    // 记录当前顶点最短距离的前一个顶点
+    int* parent = new int[size];
+    for (int i = 0; i < size; ++i) parent[i] = -1;
+    // init source vertex
+    graph->setMark(v, VISITED);
+    size --;
+    distance[v] = 0;
+    for (int curr = graph->first(v); curr < graph->V(); curr = graph->next(v, curr)) {
+        distance[curr] = graph->getWeight(v, curr);
+        parent[curr] = v;
+    }
+    // loop
+    while (size > 0) {
+        // find min distance
+        int min_distance, min_index;
+        for (min_index = 0; min_index < graph->V(); ++min_index)
+            if (graph->getMark(min_index) == UNVISITED && distance[min_index] != -1) break;
+        min_distance = distance[min_index];
+        for (int i = min_index + 1; i < graph->V(); ++i) {
+            if (graph->getMark(i) == UNVISITED && distance[i] != -1) {
+                if (distance[i] < min_distance) {
+                    min_index = i;
+                    min_distance = distance[i];
+                }
+            }
+        }
+        // handle next
+        graph->setMark(min_index, VISITED);
+        size --;
+        for (int curr = graph->first(min_index); curr < graph->V(); curr = graph->next(min_index, curr)) {
+            if (graph->getMark(curr) == UNVISITED) {
+                int tmp = graph->getWeight(min_index, curr) + distance[min_index];
+                if (distance[curr] == -1 || distance[curr] > tmp) {
+                    distance[curr] = tmp;
+                    parent[curr] = min_index;
+                }
+            }
+        }
+    }
+    // show
+//    for (int i = 0; i < graph->V(); ++i) std::cout << graph->getMark(i) << " ";
+//    std::cout << std::endl;
+    list_show(distance, graph->V());
+//    list_show(parent, graph->V());
+    parse_path(parent, graph->V(), v);
+    delete[] distance;
+    delete[] parent;
+}
+
 
 #endif //ALGORITHM_GRAPHS_H
