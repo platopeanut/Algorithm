@@ -246,11 +246,11 @@ void Dijkstra(Graph* graph, int v) {
         // find min distance
         int min_distance, min_index;
         for (min_index = 0; min_index < graph->V(); ++min_index)
-            if (graph->getMark(min_index) == UNVISITED && distance[min_index] != -1) break;
+            if (graph->getMark(min_index) == UNVISITED) break;
         min_distance = distance[min_index];
         for (int i = min_index + 1; i < graph->V(); ++i) {
             if (graph->getMark(i) == UNVISITED && distance[i] != -1) {
-                if (distance[i] < min_distance) {
+                if (min_distance == -1 || distance[i] < min_distance) {
                     min_index = i;
                     min_distance = distance[i];
                 }
