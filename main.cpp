@@ -1,33 +1,18 @@
-#include <iostream>
-#include "./dataStructures/list/List.h"
-#include "./dataStructures/list/LinkedList.cpp"
-
-template <typename E>
-void showList(List<E>* list) {
-    std::cout << "List[";
-    list->moveToStart();
-    for (int i = 0; i < list->length(); ++i) {
-        std::cout << list->getValue() << ", ";
-        list->next();
-    }
-    std::cout << "]" << std::endl;
-}
+#include "./dataStructures/tree/ParentPointerTree.h"
 
 int main()
 {
-    List<int>* list = new LinkedList<int>;
-    list->append(2);
-    list->append(23);
-    list->append(15);
-    list->append(5);
-    list->append(9);
-    list->moveToStart();
-    showList(list);
-    // remove 15
-    list->moveToPos(2);
-    list->remove();
-    // show
-    showList(list);
-    delete list;
+    int size = 10;
+    int* data_list = new int[size];
+    for (int i = 0; i < size; ++i) data_list[i] = size - i;
+    auto* tree = new ParentPointerTree<int>(data_list, size);
+
+    int pair_size = 5;
+    int pair_l[] = {2,3,4,5,6};
+    int pair_r[] = {8,8,8,8,8};
+    auto* data_pairs = new IntPair(data_list, size, pair_l, pair_r, pair_size);
+    tree->build(data_pairs);
+    tree->show();
+    delete[] data_list;
     return 0;
 }

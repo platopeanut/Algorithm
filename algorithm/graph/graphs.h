@@ -5,12 +5,15 @@
  */
 
 #include "../../dataStructures/graph/Graph.h"
+#include "../../dataStructures/graph/MatrixGraph.h"
 #include <iostream>
 #include "../../dataStructures/queue/Queue.h"
 #include "../../dataStructures/stack/Stack.h"
 #include "../../dataStructures/stack/LinkedStack.h"
 #include "../../dataStructures/queue/LinkedQueue.cpp"
 #include "../../dataStructures/graph/ListGraph.h"
+#include "../../dataStructures/heap/Heap.cpp"
+#include "./KruskalItem.h"
 #include "../../util/list_tool.h"
 #include <vector>
 
@@ -279,5 +282,60 @@ void Dijkstra(Graph* graph, int v) {
     delete[] parent;
 }
 
+/**
+ *   Minimum-cost Spanning Tree (MST) 最小支撑树
+ */
+
+// Prim
+/**
+ * @param graph 连通无向图
+ */
+void Prim(Graph* graph) {
+    reset_mark(graph);
+    graph->setMark(0, VISITED);
+    int remain_num = graph->V() - 1;
+    while (remain_num > 0) {
+        int min_distance = -1;  // 最近距离
+        int min_start = -1; // 最近距离的起点
+        int min_end = -1;   // 最近距离的终点
+        // find min
+        for (int i = 0; i < graph->V(); ++i) {
+            if (graph->getMark(i) == VISITED) {
+                for (int curr = graph->first(i); curr < graph->V(); curr = graph->next(i, curr)) {
+                    if (graph->getMark(curr) == UNVISITED) {
+                        int curr_distance = graph->getWeight(i, curr);
+                        if (min_distance == -1 || min_distance > curr_distance) {
+                            min_distance = curr_distance;
+                            min_start = i;
+                            min_end = curr;
+                        }
+                    }
+                }
+            }
+        }
+        // update
+        std::cout << "(" << min_start << ", " << min_end << "): " << min_distance << std::endl;
+        graph->setMark(min_end, VISITED);
+        remain_num --;
+    }
+}
+// Kruskal
+void Kruskal(Graph* graph) {
+    // 装载
+    auto* items = new KruskalItem[graph->E()];
+    for (int i = 0, index = 0; i < graph->V(); ++i) {
+        for (int j = 0; j < graph->V(); ++j) {
+            if (graph->isEdge(i, j)) {
+                items[index++] = KruskalItem(i, j, graph->getWeight(i, j));
+            }
+        }
+    }
+    auto* heap = new Heap<KruskalItem>(items, graph->E(), graph->E(), new MinCompare<KruskalItem>);
+    // find min
+    while (heap->size() > 0) {
+        KruskalItem kruskalItem = heap->removeFirst();
+    }
+    delete[] items;
+}
 
 #endif //ALGORITHM_GRAPHS_H
