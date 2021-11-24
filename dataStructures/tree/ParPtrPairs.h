@@ -1,11 +1,11 @@
-#ifndef ALGORITHM_PARPTRPAIR_H
-#define ALGORITHM_PARPTRPAIR_H
+#ifndef ALGORITHM_PARPTRPAIRS_H
+#define ALGORITHM_PARPTRPAIRS_H
 
 /**
  *  Parent Pointer Tree 中传递的数据对的接口
  */
 template<typename T>
-class ParPtrPair {
+class ParPtrPairs {
 public:
     /**
      * @param 数值对 a, b
@@ -15,18 +15,19 @@ public:
 };
 
 // 测试实现类
-class IntPair: public ParPtrPair<int> {
+template<typename T>
+class BasePairs: public ParPtrPairs<T> {
 private:
-    int* data_list;
+    T* data_list;
     int data_size;
-    int* pair_left;
-    int* pair_right;
+    T* pair_left;
+    T* pair_right;
     int pair_size;
 public:
-    IntPair(int *dataList, int dataSize, int *pairLeft, int *pairRight, int pairSize)
+    BasePairs(T *dataList, int dataSize, T *pairLeft, T *pairRight, int pairSize)
     : data_list(dataList), data_size(dataSize), pair_left(pairLeft),
     pair_right(pairRight),pair_size(pairSize) {}
-    bool getPair(int *a, int *b) override {
+    bool getPair(T *a, T *b) override {
         if (pair_size > 0) {
             *a = pair_left[pair_size - 1];
             *b = pair_right[pair_size - 1];
@@ -41,4 +42,4 @@ public:
 
 
 
-#endif //ALGORITHM_PARPTRPAIR_H
+#endif //ALGORITHM_PARPTRPAIRS_H

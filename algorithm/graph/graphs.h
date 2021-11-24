@@ -13,7 +13,8 @@
 #include "../../dataStructures/queue/LinkedQueue.cpp"
 #include "../../dataStructures/graph/ListGraph.h"
 #include "../../dataStructures/heap/Heap.cpp"
-#include "./KruskalItem.h"
+#include "../../dataStructures/tree/ParPtrTree.h"
+#include "./KruskalItems.h"
 #include "../../util/list_tool.h"
 #include <vector>
 
@@ -322,20 +323,26 @@ void Prim(Graph* graph) {
 // Kruskal
 void Kruskal(Graph* graph) {
     // в╟ть
-    auto* items = new KruskalItem[graph->E()];
+    auto* kruskalItems = new KruskalItems(graph->E());
     for (int i = 0, index = 0; i < graph->V(); ++i) {
         for (int j = 0; j < graph->V(); ++j) {
             if (graph->isEdge(i, j)) {
-                items[index++] = KruskalItem(i, j, graph->getWeight(i, j));
+                kruskalItems->add(i, j, graph->getWeight(i, j));
             }
         }
     }
-    auto* heap = new Heap<KruskalItem>(items, graph->E(), graph->E(), new MinCompare<KruskalItem>);
+    auto* heap = new Heap<KruskalItem>(kruskalItems->getItems(), graph->E(), graph->E(), new MinCompare<KruskalItem>);
     // find min
+    auto* tree = new ParPtrTree<int>(graph->V());
     while (heap->size() > 0) {
-        KruskalItem kruskalItem = heap->removeFirst();
+        KruskalItem item = heap->removeFirst();
+        if (tree->build(item.from, item.to)) {
+            std::cout << "(" << item.from << ", " << item.to << "): " << item.distance << std::endl;
+        }
     }
-    delete[] items;
+    delete kruskalItems;
+    delete heap;
+    delete tree;
 }
 
 #endif //ALGORITHM_GRAPHS_H
