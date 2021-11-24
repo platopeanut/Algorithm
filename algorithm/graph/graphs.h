@@ -291,9 +291,9 @@ void Dijkstra(Graph* graph, int v) {
 /**
  * @param graph 连通无向图
  */
-void Prim(Graph* graph) {
+void Prim(Graph* graph, int start = 0) {
     reset_mark(graph);
-    graph->setMark(0, VISITED);
+    graph->setMark(start, VISITED);
     int remain_num = graph->V() - 1;
     while (remain_num > 0) {
         int min_distance = -1;  // 最近距离
